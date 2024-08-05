@@ -14,6 +14,9 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Framework: Express
 - Database: MongoDB, Firebase
 
+## Architecture: 
+  Layered Architecture
+
 ## Features: 
 - As a new unregistered user I want to register an account so I can login in the future to use the App and all of its features.
 - As a registered user I want to login using my username and password so I can later log out of my account.
