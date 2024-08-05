@@ -19,6 +19,7 @@ This is a Web app called “Core Marker” where people can write about their pe
 
 ## Architecture: 
   Layered Architecture
+  ![alt text](image.png)
 
 ## Features: 
 - As a new unregistered user I want to register an account so I can login in the future to use the App and all of its features. Story points 2, Priority 1
