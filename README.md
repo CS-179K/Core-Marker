@@ -7,7 +7,7 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Jimmy Delgado-Hernandez: https://github.com/Maker424
 - Peter Lu: https://github.com/py1u
 - Shiva Shashank Adlagatta: https://github.com/sala001
-- Luke Nguyen
+- Luke Nguyen: https://github.com/lukenguyen353
 
 ## Techniques Required: 
 - Languages: HTML, CSS, Javascript, React
@@ -15,7 +15,8 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Database: MongoDB, Firebase
 
 ## Non-Functional Requirements: 
-  Security: CORS, Sanitization
+  Security: 
+  - Include protections such as Login Verification and Input Sanitization to combat attacks
 
 ## Architecture: 
   Layered Architecture
