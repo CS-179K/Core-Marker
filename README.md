@@ -14,6 +14,9 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Framework: Express
 - Database: MongoDB, Firebase
 
+## Non-Functional Requirements: 
+  Security: CORS, Sanitization
+
 ## Architecture: 
   Layered Architecture
 
