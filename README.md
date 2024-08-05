@@ -15,7 +15,8 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Database: MongoDB, Firebase
 
 ## Non-Functional Requirements: 
-  Security: CORS, Sanitization
+  Security: 
+  - Include protections such as Login Verification and Input Sanitization to combat attacks
 
 ## Architecture: 
   Layered Architecture
