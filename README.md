@@ -27,6 +27,4 @@ This is a Web app called “Core Marker” where people can write about their pe
 - As an active user I want to access my settings so I can personalize and control my account information. Story points 1, Priority 7
 - As an active user I want to contact the developers so I can give feedback or report problems about the App. Story points 2, Priority 8
 
-## User Story Cost: 
-
 ## Burndown Chart:
