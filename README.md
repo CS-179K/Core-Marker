@@ -15,13 +15,13 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Database: MongoDB, Firebase
 
 ## Features: 
--
--
--
--
--
--
--
--
+- As a new unregistered user I want to register an account so I can login in the future to use the App and all of its features.
+- As a registered user I want to login using my username and password so I can later log out of my account.
+- As an active user on my profile page I want to be able to customize and edit my profile information so I can display appropriate information for other users to view.
+- As an active user on the home page I want to be able to scroll on the home page so I can view other users posts and interact with them.
+- As an active user I want to search for posts and accounts so that I can find relevant content and find my friends.
+- As an active user I want to comment posts so I can interact with my friends and other users.
+- As an active user I want to access my settings so I can personalize and control my account information.
+- As an active user I want to contact the developers so I can give feedback or report problems about the App.
 
 ## Burndown Chart:
