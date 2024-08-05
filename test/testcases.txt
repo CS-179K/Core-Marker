@@ -1,0 +1,31 @@
+Test Cases:
+
+Create front end UI for Login/LogOut Page:
+- Verify if login/ Logout button works
+- Verify if text box for username works
+- Verify if text box for password works
+
+Create front end UI for the Register Page:
+- Verify if register button works
+- Verify if text box for username works
+- Verify if text box for password works
+
+Create and Initialize React Project:
+- Verify if the project is live
+- Verify if multiple people can work on the project
+- Verify if the project can be viewed in the github
+
+Create MongoDB Database:
+-Verify if the DB can run without error
+-Verify if the DB can take in Data
+-Secure data in Database
+
+Input Sanitization Verification for Login/Logout:
+-Verify if user can't type basic malicious javascript code
+-Verify email matches with the information in the Database
+-Verify password matches with the information in the Database
+
+Input Sanitization/registration requirement for Registration page:
+-Verify if user can't type basic malicious javascript code
+-Verify is Password character length must be at least 8 characters
+-Verify if Password contains at least one letter and one digit
