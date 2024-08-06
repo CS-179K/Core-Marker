@@ -30,12 +30,12 @@ Input Sanitization/registration requirement for Registration page:
 -Verify is Password character length must be at least 8 characters
 -Verify if Password contains at least one letter and one digit
 
-Create backend homepage can get user posts logic:
+Create backend function where homepage can get user posts logic:
 - Verify if a GET request can be made by the client
 - Verify if a POST request can be made to the database
 - Verify if a post object can be rendered to the client side
 
-Create backend profile page editable logic:
+Create backend function for profile page editable logic:
 - Verify if a PUT request can update a user profile information
 - Verify if the database reflects the changes from the PUT request
 - Verify if the modification to database re renders information to the client side
