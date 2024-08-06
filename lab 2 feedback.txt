@@ -13,7 +13,7 @@ tasks/tests:
 "Testing "
 Finding the right level of detail for tasks can be rather difficult.
 // It looks a bit like y'all are not actually using the sprint board for your planning.
-// Documenting things one way and doing them another uncommon.
+// Documenting things one way and doing them another is not uncommon.
 // And for a project of this size it's probably easier as well.
 //
 // It's interesting that planning in sprints is done before one has actually started prototyping at all.
