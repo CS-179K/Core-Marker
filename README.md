@@ -11,7 +11,7 @@ This is a Web app called “Core Marker” where people can write about their pe
 
 ## Techniques Required: 
 - Languages: HTML, CSS, Javascript, React
-- Framework: Express
+- Framework: Nodejs, Expressjs
 - Database: MongoDB, Firebase
 
 ## Non-Functional Requirements: 

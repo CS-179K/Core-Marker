@@ -1,0 +1,32 @@
+____ user stories ____
+
+"As an active user I want to contact the developers so I can give feedback or report problems about the App. Story points 2, Priority 8"
+This is a great feature.
+User feedback on products is quite valuable, and it's generally left as an afterthought.
+
+____ sprint board ____
+
+Generally we only place the stories we intended to finish on a sprint board.
+// Rather than all of them
+
+tasks/tests:
+"Testing "
+Finding the right level of detail for tasks can be rather difficult.
+// It looks a bit like y'all are not actually using the sprint board for your planning.
+// Documenting things one way and doing them another is not uncommon.
+// And for a project of this size it's probably easier as well.
+//
+// It's interesting that planning in sprints is done before one has actually started prototyping at all.
+// As far as I can tell unless one has done a similar project before breaking things into tasks feels fairly arbitrary.
+// I suppose it comes with practice, and even with practice plans can fall apart pretty quick.
+
+
+
+____ conc. ____
+
+Looks good.
+By the end of Thursday's lab we're going to want a DB Scheme (for anything related to your first sprint), and UI wireframe.
+
+
+6/6
+
