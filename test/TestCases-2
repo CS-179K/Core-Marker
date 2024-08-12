@@ -11,7 +11,7 @@ Set up authentication for Registration Page – Jimmy
 Create static frontend UI for Homepage - Peter
   -- Verify users are able to view the home page
   -- verify page route goes to route "/home"
-  -- verify users have the option to click on their profile avatar to route to profile page"
+  -- verify users have the option to click on their profile avatar to route to their own profile page"
 
 Create backend function where homepage can get user posts logic - Peter
   -- Verify if a GET request can be made by the client
