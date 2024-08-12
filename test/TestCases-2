@@ -13,10 +13,10 @@ Create static frontend UI for Homepage - Peter
   -- verify page route goes to route "/home"
   -- verify users have the option to click on their profile avatar to route to their own profile page"
 
-Create backend function where homepage can get user posts logic - Peter
-  -- Verify if a GET request can be made by the client
-  -- Verify if a POST request can be made to the database
-  -- Verify if a POST object can be rendered to the client side
+Create backend function where homepage gets routed after sign up and login - Peter
+  -- Verify if sign in routes to the homepage
+  -- Verify if login routes to the homepage
+  -- Verify the route to the homepage is a successful request
 
 Create Static frontend UI for Post Component - Peter
   -- Verify if a post component can be viewed by users from homepage
