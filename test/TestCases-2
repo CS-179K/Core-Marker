@@ -1,0 +1,9 @@
+Set up authentication for Login Page – Jimmy
+  -- Verfiy if the Authentication checks for correct user password 
+  -- Verify if the Authentication checks for correct user email
+  -- Verify if the google sign in functions correctly
+
+Set up authentication for Registration Page – Jimmy
+  -- Verify if users have correct user email logic
+  -- verify if users have meet password security
+  -- verify if users can't create duplicate accounts with the same email if one exists already
