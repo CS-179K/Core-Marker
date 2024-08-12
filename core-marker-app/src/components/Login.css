@@ -8,6 +8,23 @@ body, html {
   background-color: #f4f4f4; /* Optional: background color for the page */
 }
 
+/* Centering the title and login container */
+.login-page {
+  text-align: center;
+}
+
+.logo {
+  width: 100px; /* Adjust the width as needed */
+  margin-bottom: 20px; /* Space between logo and title */
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
 /* Centering the login container */
 .login-container {
   width: 300px;
@@ -52,5 +69,4 @@ button {
 button:hover {
   background-color: #0056b3;
 }
-
   
