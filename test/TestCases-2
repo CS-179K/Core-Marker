@@ -7,3 +7,18 @@ Set up authentication for Registration Page – Jimmy
   -- Verify if users have correct user email logic
   -- verify if users have meet password security
   -- verify if users can't create duplicate accounts with the same email if one exists already
+
+Create static frontend UI for Homepage - Peter
+  -- Verify users are able to view the home page
+  -- verify page route goes to route "/home"
+  -- verify users have the option to click on their profile avatar to route to profile page"
+
+Create backend function where homepage can get user posts logic - Peter
+  -- Verify if a GET request can be made by the client
+  -- Verify if a POST request can be made to the database
+  -- Verify if a POST object can be rendered to the client side
+
+Create Static frontend UI for Post Component - Peter
+  -- Verify if a post component can be viewed by users from homepage
+  -- Verify if that a post component has a title and description as part of the content.
+  -- Verify if a post component that renders on the homepage matches the user who created it
