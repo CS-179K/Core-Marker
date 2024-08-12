@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Signup.css";
 import logo from "./logo.png"; // Adjust path as needed
 
