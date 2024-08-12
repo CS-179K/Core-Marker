@@ -22,3 +22,13 @@ Create Static frontend UI for Post Component - Peter
   -- Verify if a post component can be viewed by users from homepage
   -- Verify if that a post component has a title and description as part of the content.
   -- Verify if a post component that renders on the homepage matches the user who created it
+Help with homepage UI - Luke
+  -- Verify if the homepage displays post
+  -- Verify if the homepage can access profile page
+  -- Verify if the homepage matches or is similar to the wireframe
+
+Help with profile UI - Luke
+  -- Verify if the profile page shows correct information
+  -- Verify if the progile page can access profile settings
+  -- Verify if the profile page matches or is similar to the wireframe
+
