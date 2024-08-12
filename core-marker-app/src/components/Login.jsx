@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Login.css";
 import logo from "./logo.png"; // Adjust the path according to where you placed the image
 
