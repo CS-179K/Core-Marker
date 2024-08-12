@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import './Login.css';
-import logo from './logo.png'; // Adjust the path according to where you placed the image
+import { useState } from "react";
+import "./Login.css";
+import logo from "./logo.png"; // Adjust the path according to where you placed the image
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Password:', password);
+    console.log("Email:", email, "Password:", password);
     // Add your login logic here
   };
 

@@ -1,26 +1,26 @@
-/*
-import React from 'react';
-import Login from './components/Login.jsx';
+import posts from "./data/posts";
+import Post from "./components/Post";
+import Navbar from "./components/Navbar";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Login />
+    <div className="p-8">
+      <Navbar />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {posts.map((card, index) => (
+          <Post
+            key={index}
+            title={card.title}
+            content={card.content}
+            image={card.image}
+          />
+        ))}
+      </div>
+
+      <footer></footer>
     </div>
   );
-}
-
-export default App;
-*/
-import React from "react";
-import Signup from "./components/Signup.jsx";
-
-function App() {
-  return (
-    <div className="App">
-      <Signup />
-    </div>
-  );
-}
+};
 
 export default App;
