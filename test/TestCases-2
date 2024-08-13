@@ -32,3 +32,8 @@ Help with profile UI - Luke
   -- Verify if the progile page can access profile settings
   -- Verify if the profile page matches or is similar to the wireframe
 
+Create static frontend UI for profile UI - Shiva
+  --verify if profile page displays profile avatar
+  --verify if profile page displays banner
+  --verify if profile page matches or is similar to the wireframe
+
