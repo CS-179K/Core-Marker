@@ -13,10 +13,10 @@ Create static frontend UI for Homepage - Peter
   -- verify page route goes to route "/home"
   -- verify users are able to see logo, navbar, and avatar components in the header
 
-Create backend function where homepage gets routed after sign up and login - Peter
-  -- Verify if sign in routes to the homepage
-  -- Verify if login routes to the homepage
-  -- Verify the route to the homepage is a successful request
+Create Profile Page Route for users to navigate from home to their profile - Peter
+  -- Verify if profile routes to home page
+  -- Verify if home page can navigate to profile page on avatar event.
+  -- Verify the route to the profile is a successful request
 
 Create Static frontend UI for Post Component - Peter
   -- Verify if a post component can be viewed by users from homepage
