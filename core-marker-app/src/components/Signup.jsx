@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "./Signup.css";
 import logo from "./logo.png"; // Adjust path as needed
 
@@ -6,6 +7,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +17,12 @@ const Signup = () => {
     }
     console.log("Email:", email, "Password:", password);
     // Add your signup logic here
+
+    navigate('/home'); // Redirect to home after signup
+  };
+
+  const handleLoginRedirect = () => {
+    navigate('/login'); // Redirect to the Login page
   };
 
   return (
@@ -53,9 +61,19 @@ const Signup = () => {
           </div>
           <button type="submit">Sign Up</button>
         </form>
+        <p className="mt-4">
+          Already registered?{" "}
+          <button
+            onClick={handleLoginRedirect}
+            className="text-blue-500 hover:underline"
+          >
+            Login here
+          </button>
+        </p>
       </div>
     </div>
   );
 };
 
 export default Signup;
+
