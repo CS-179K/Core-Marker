@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import "./Signup.css";
-import logo from "./logo.png"; // Adjust path as needed
+import "../components/Signup.css";
+import logo from "../components/logo.png"; // Adjust path as needed
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -18,11 +18,11 @@ const Signup = () => {
     console.log("Email:", email, "Password:", password);
     // Add your signup logic here
 
-    navigate('/home'); // Redirect to home after signup
+    navigate("/home"); // Redirect to home after signup
   };
 
   const handleLoginRedirect = () => {
-    navigate('/login'); // Redirect to the Login page
+    navigate("/login"); // Redirect to the Login page
   };
 
   return (
@@ -76,4 +76,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
