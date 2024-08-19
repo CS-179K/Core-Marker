@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SignUp.css";
-import logo from "./logo.png"; // Adjust the path if needed
+import "../components/Signup.css";
+import logo from "../assets/logo.png"; // Adjust the path if needed
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -81,7 +81,7 @@ const SignUp = () => {
         <p className="mt-4">
           Already have an account?{" "}
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/Login")}
             className="text-white hover:underline"
           >
             Log In here
