@@ -1,9 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt"); // For password hashing
+const bcrypt = require("bcrypt");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
-const bodyParser = require("body-parser"); // To parse JSON request bodies
+const bodyParser = require("body-parser");
 
 const mongoDB_ConnectionString =
   "mongodb+srv://Maker424:CS179K-Project-Legend@core-marker-database.lsbe7.mongodb.net/?retryWrites=true&w=majority&appName=Core-Marker-Database";
@@ -20,7 +20,7 @@ const app = express();
 const port = 8080;
 
 app.use(cors());
-app.use(bodyParser.json()); // Middleware to parse JSON
+app.use(bodyParser.json());
 
 app.use(
   mongoSanitize({
@@ -30,13 +30,40 @@ app.use(
   })
 );
 
-// Mock User Schema for demonstration
+// User Schema
 const userSchema = new mongoose.Schema({
-  email: String,
-  password: String, // This should be hashed in a real application
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 });
 
 const User = mongoose.model("User", userSchema);
+
+// Signup route
+app.post("/api/signup", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: "User created successfully" });
+  } catch (error) {
+    console.error("Error during signup:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Login route
 app.post("/api/login", async (req, res) => {
@@ -49,15 +76,14 @@ app.post("/api/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Compare password with stored hash
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // If authentication is successful, send a success response
     res.status(200).json({ message: "Login successful" });
   } catch (error) {
+    console.error("Error during login:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
