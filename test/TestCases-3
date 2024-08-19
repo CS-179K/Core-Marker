@@ -1,1 +1,4 @@
-
+Create a viewpost page - Luke
+  - is opened when clicking on a post
+  - shows a post and the comments of the post
+  - shows the location of the user when posted
