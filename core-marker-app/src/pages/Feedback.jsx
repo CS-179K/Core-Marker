@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
+import Navbar from '../components/Navbar';
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
@@ -39,6 +40,8 @@ const FeedbackForm = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 flex items-center justify-center">
       <form onSubmit={handleSubmit} className="bg-white p-10 rounded-lg shadow-lg max-w-2xl w-full">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Feedback Form</h2>
@@ -123,6 +126,7 @@ const FeedbackForm = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 
