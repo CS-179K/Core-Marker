@@ -18,16 +18,15 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+        credentials: "include", // Make sure to include credentials for session management
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to the home page after successful login
-        navigate("/home");
+        navigate("/home"); // Redirect to home on successful login
       } else {
-        // Handle login failure
-        alert(data.message);
+        alert(data.message); // Display error message
       }
     } catch (error) {
       console.error("Error:", error);
@@ -36,7 +35,7 @@ const Login = () => {
   };
 
   const handleSignupRedirect = () => {
-    navigate("/"); // Navigate to the Signup page
+    navigate("/signup"); // Navigate to the Signup page
   };
 
   return (
