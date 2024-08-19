@@ -12,3 +12,13 @@ Create a FeedbackForm for user to send email to developer -  Shiva
   -verify if feedback form is displayed 
   -verify if all the required fields are satisfied
   -verify if developer is getting the fedback form sent by the user
+
+Create a Comment Section under each Post for users to post their comments about the specific post they clicked on -- Jimmy
+  - verify that users can only comment in this section only
+  - verify that users can comment to a post they selected instead of another random post
+  - verify that users can delete their comments if they had wrote a comment before, but now want to remove their comment 
+
+Create a Like and Dislike buttons for users to like or dislike a post -- Jimmy 
+  - Show that a like and Dislike exists for each post through their own symbols
+  - Verify if the like and Dislike buttons work by checking for an updated counter on the side
+  - Verify if the like and Dislike buttons are selected by showing the symbols change color for when they are clicked on
