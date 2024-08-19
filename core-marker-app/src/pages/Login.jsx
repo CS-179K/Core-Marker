@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   const handleSignupRedirect = () => {
-    navigate("/Signup"); // Navigate to the Signup page
+    navigate("/"); // Navigate to the Signup page
   };
 
   return (

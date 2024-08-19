@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../components/Signup.css";
-import logo from "../assets/logo.png";
+import "../components/SignUp.css";
+import logo from "../assets/logo.png"; // Adjust the path if needed
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -47,11 +47,11 @@ const SignUp = () => {
       </div>
       <h1 className="title">Core-Marker</h1>
       <div className="signup-container">
-        <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Email:</label>
             <input
+              className="border-2 border-gray-600 rounded-md"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -61,6 +61,7 @@ const SignUp = () => {
           <div className="input-group">
             <label>Password:</label>
             <input
+              className="border-2 border-gray-600 rounded-md"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
