@@ -2,3 +2,10 @@ Create a viewpost page - Luke
   - is opened when clicking on a post
   - shows a post and the comments of the post
   - shows the location of the user when posted
+
+Connecting backend to retrieve post and profile data - Luke
+  - verify if profile avatar can be inputted and retrieved from the database
+  - verify if profile information is unique to each user (bio, user)
+  - verify if all the user's posts are retrieved from the backend and displayed on profile page
+
+
