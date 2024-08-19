@@ -1,10 +1,47 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./routes/root";
+import Signup from "./pages/Signup";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Post from "./pages/Post"; // Import the PostPage component
+import ErrorPage from "./error-page";
+import Login from "./pages/Login";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "post",
+        element: <Post />, // Add the route for the PostPage
+      },
+      {
+        path: "login",
+        element: <Login />, // Add the route for the PostPage
+      },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
