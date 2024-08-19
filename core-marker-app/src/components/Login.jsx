@@ -11,13 +11,13 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Email:", email, "Password:", password);
-    
+
     // Add your login logic here
     const isAuthenticated = true; // Replace this with your actual authentication logic
 
     if (isAuthenticated) {
       // Redirect to the home page after successful login
-      navigate('/home');
+      navigate("/home");
     } else {
       // Handle login failure (e.g., show an error message)
       alert("Login failed! Please check your credentials.");
@@ -25,12 +25,14 @@ const Login = () => {
   };
 
   const handleSignupRedirect = () => {
-    navigate('/'); // Navigate to the Signup page
+    navigate("/"); // Navigate to the Signup page
   };
 
   return (
     <div className="login-page">
-      <img src={logo} alt="Core-Marker Logo" className="logo" />
+      <div className="flex justify-center">
+        <img src={logo} alt="Core-Marker Logo" className="logo" />
+      </div>
       <h1 className="title">Core-Marker</h1>
       <div className="login-container">
         <h2>Login</h2>
@@ -59,7 +61,7 @@ const Login = () => {
           Not Registered?{" "}
           <button
             onClick={handleSignupRedirect}
-            className="text-blue-500 hover:underline"
+            className="text-white hover:underline"
           >
             Sign Up here
           </button>
@@ -70,4 +72,3 @@ const Login = () => {
 };
 
 export default Login;
-
