@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/Signup.css";
-import logo from "../assets/logo.png"; // Adjust the path if needed
+import logo from "../assets/logo.png";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -29,8 +29,8 @@ const SignUp = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Signup successful! You can now log in.");
-        navigate("/login");
+        alert("Signup successful! Redirecting to login...");
+        navigate("/"); // Navigate to the login page
       } else {
         alert(data.message);
       }
@@ -81,7 +81,7 @@ const SignUp = () => {
         <p className="mt-4">
           Already have an account?{" "}
           <button
-            onClick={() => navigate("/Login")}
+            onClick={() => navigate("/")}
             className="text-white hover:underline"
           >
             Log In here
