@@ -46,7 +46,6 @@ const Login = () => {
       </div>
       <h1 className="title">Core-Marker</h1>
       <div className="login-container">
-        <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Email:</label>
