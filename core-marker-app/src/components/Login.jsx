@@ -1,26 +1,37 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import logo from "./logo.png"; // Adjust the path according to where you placed the image
+import logo from "./logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Initialize the navigate hook
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
 
-    // Add your login logic here
-    const isAuthenticated = true; // Replace this with your actual authentication logic
+    try {
+      const response = await fetch("http://localhost:8080/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (isAuthenticated) {
-      // Redirect to the home page after successful login
-      navigate("/home");
-    } else {
-      // Handle login failure (e.g., show an error message)
-      alert("Login failed! Please check your credentials.");
+      const data = await response.json();
+
+      if (response.ok) {
+        // Redirect to the home page after successful login
+        navigate("/home");
+      } else {
+        // Handle login failure
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
