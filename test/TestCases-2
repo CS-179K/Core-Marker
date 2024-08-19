@@ -1,0 +1,39 @@
+Set up authentication for Login Page – Jimmy
+  -- Verfiy if the Authentication checks for correct user password 
+  -- Verify if the Authentication checks for correct user email
+  -- Verify if the google sign in functions correctly
+
+Set up authentication for Registration Page – Jimmy
+  -- Verify if users have correct user email logic
+  -- verify if users have meet password security
+  -- verify if users can't create duplicate accounts with the same email if one exists already
+
+Create static frontend UI for Homepage - Peter
+  -- Verify users are able to view the home page
+  -- verify page route goes to route "/home"
+  -- verify users are able to see logo, navbar, and avatar components in the header
+
+Create Profile Page Route for users to navigate from home to their profile - Peter
+  -- Verify if profile routes to home page
+  -- Verify if home page can navigate to profile page on avatar event.
+  -- Verify the route to the profile is a successful request
+
+Create Static frontend UI for Post Component - Peter
+  -- Verify if a post component can be viewed by users from homepage
+  -- Verify if that a post component has a title and description as part of the content.
+  -- Verify if a post component that renders on the homepage matches the user who created it
+Help with homepage UI - Luke
+  -- Verify if the homepage displays post
+  -- Verify if the homepage can access profile page
+  -- Verify if the homepage matches or is similar to the wireframe
+
+Help with profile UI - Luke
+  -- Verify if the profile page shows correct information
+  -- Verify if the progile page can access profile settings
+  -- Verify if the profile page matches or is similar to the wireframe
+
+Create static frontend UI for profile UI - Shiva
+  --verify if profile page displays profile avatar
+  --verify if profile page displays banner
+  --verify if profile page matches or is similar to the wireframe
+
