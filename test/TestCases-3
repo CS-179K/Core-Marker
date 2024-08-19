@@ -8,4 +8,7 @@ Connecting backend to retrieve post and profile data - Luke
   - verify if profile information is unique to each user (bio, user)
   - verify if all the user's posts are retrieved from the backend and displayed on profile page
 
-
+Create a FeedbackForm for user to send email to developer -  Shiva
+  -verify if feedback form is displayed 
+  -verify if all the required fields are satisfied
+  -verify if developer is getting the fedback form sent by the user
