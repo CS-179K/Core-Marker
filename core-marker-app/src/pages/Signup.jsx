@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../components/SignUp.css";
+import "../components/Signup.css";
 import logo from "../assets/logo.png"; // Adjust the path if needed
 
 const SignUp = () => {
