@@ -28,6 +28,18 @@ const Navbar = () => {
             My Profile
           </Link>
           <Link
+            to="/login"
+            className="text-white transition duration-300 hover:text-gray-400"
+          >
+            Login 
+          </Link>
+          <Link
+            to="/signup"
+            className="text-white transition duration-300 hover:text-gray-400"
+          >
+            Signup
+          </Link>
+          <Link
             to="/Feedback"
             className="text-white hover:text-gray-400 transition duration-300"
           >

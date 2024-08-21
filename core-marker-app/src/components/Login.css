@@ -29,6 +29,8 @@ html {
 /* Centering the login container */
 .login-container {
   width: 300px;
+  position: relative;
+  left: 120px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
