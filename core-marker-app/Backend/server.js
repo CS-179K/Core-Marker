@@ -27,7 +27,7 @@ app.use(
     onSanitize: ({ req, key }) => {
       console.warn(`This request[${key}] is sanitized`, req);
     },
-  })
+  }),
 );
 
 // Mock User Schema for demonstration
