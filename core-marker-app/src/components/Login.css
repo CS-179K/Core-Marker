@@ -1,5 +1,6 @@
 /* Set the body and html to take up full height */
-body, html {
+body,
+html {
   height: 100%;
   margin: 0;
   display: flex;
@@ -59,7 +60,7 @@ body, html {
 button {
   width: 100%;
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -69,4 +70,3 @@ button {
 button:hover {
   background-color: #0056b3;
 }
-  
