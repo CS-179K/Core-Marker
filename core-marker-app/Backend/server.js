@@ -34,9 +34,44 @@ app.use(
 const userSchema = new mongoose.Schema({
   email: String,
   password: String, // This should be hashed in a real application
-});
+}); 
 
 const User = mongoose.model("User", userSchema);
+
+// Signup route
+app.post("/api/signup", async (req, res) => {
+  const { Username, Email, Password } = req.body;
+
+  if (!Username || !Email || !Password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ Email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    // Hash the password here
+
+    // Create a new user
+    const newUser = new User({
+      Username,
+      Email,
+      Password
+    });
+
+    // Save the user to the database
+    await newUser.save();
+
+    // Respond with success message
+    res.status(201).json({ message: "User created successfully" });
+  } catch (error) {
+    console.error("Error signing up user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Login route
 app.post("/api/login", async (req, res) => {
