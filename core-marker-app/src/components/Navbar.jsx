@@ -43,7 +43,7 @@ const Navbar = () => {
             to="/Feedback"
             className="text-white hover:text-gray-400 transition duration-300"
           >
-             Form
+             CONTACT US 
           </Link>
         </div>
       </div>
