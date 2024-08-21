@@ -1,15 +1,13 @@
-import "../components/Profile.css"; // Create this file for custom styles if needed
 import Post from "../components/Post";
-import posts from "../data/posts"; // Adjust the import path if needed
+import posts from "../data/posts";
 
 const Profile = () => {
-  // Example user details
   const user = {
     name: "Profile Name",
     email: "user@example.com",
     bio: "Header title here",
-    avatar: "22.png", // Replace with actual avatar image URL
-    banner: "62.jpg", // Replace with actual banner image URL
+    avatar: "22.png",
+    banner: "62.jpg",
   };
 
   return (
