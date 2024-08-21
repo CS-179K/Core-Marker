@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../components/Login.css";
-import logo from "../assets/logo.png";
+
+// import logo from "../assets/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -36,48 +36,59 @@ const Login = () => {
   };
 
   const handleSignupRedirect = () => {
-    navigate("/"); // Navigate to the Signup page
+    navigate("/signup"); // Navigate to the Signup page
   };
 
   return (
-    <div className="login-page">
-      <div className="flex justify-center">
-        <img src={logo} alt="Core-Marker Logo" className="logo" />
-      </div>
-      <h1 className="title">Core-Marker</h1>
-      <div className="login-container">
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>Email:</label>
-            <input
-              className="rounded-md border-2 border-gray-600"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+    <div className="m-0 flex h-screen flex-col items-center justify-center">
+      <div className="">
+        <div className="rounded-md bg-gray-50 p-10">
+          {/* <div className="flex justify-center">
+            <img src={logo} alt="Core-Marker Logo" className="logo w-20" />
+          </div> */}
+          <div className="mb-2 font-semibold">Login to Your Account.</div>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label className="text-sm">Email:</label>
+            </div>
+            <div>
+              <input
+                className="rounded-md border border-gray-400 py-2 pl-2 pr-20 focus:border-blue-400 focus:outline-none focus:ring-2"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="example@gmail.com"
+              />
+            </div>
+            <div className="input-group">
+              <label className="text-sm">Password:</label>
+            </div>
+            <div>
+              <input
+                className="rounded-md border border-gray-400 py-2 pl-2 pr-20 focus:border-blue-400 focus:outline-none focus:ring-2"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="password"
+              />
+            </div>
+            <div className="mt-4 rounded-md bg-blue-400 py-2 text-center">
+              <button className="text-white" type="submit">
+                Login
+              </button>
+            </div>
+          </form>
+          <div className="py-4 text-center text-sm">or</div>
+          <div>
+            <p className="text-center text-sm">
+              <button onClick={handleSignupRedirect} className="">
+                Not Registered? Sign Up here
+              </button>
+            </p>
           </div>
-          <div className="input-group">
-            <label>Password:</label>
-            <input
-              className="rounded-md border-2 border-gray-600"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Login</button>
-        </form>
-        <p className="mt-4">
-          Not Registered?{" "}
-          <button
-            onClick={handleSignupRedirect}
-            className="text-white hover:underline"
-          >
-            Sign Up here
-          </button>
-        </p>
+        </div>
       </div>
     </div>
   );
