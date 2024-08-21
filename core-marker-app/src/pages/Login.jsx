@@ -50,7 +50,7 @@ const Login = () => {
           <div className="input-group">
             <label>Email:</label>
             <input
-              className="border-2 border-gray-600 rounded-md"
+              className="rounded-md border-2 border-gray-600"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -60,7 +60,7 @@ const Login = () => {
           <div className="input-group">
             <label>Password:</label>
             <input
-              className="border-2 border-gray-600 rounded-md"
+              className="rounded-md border-2 border-gray-600"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
