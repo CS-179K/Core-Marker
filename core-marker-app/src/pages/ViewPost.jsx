@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ViewPost = ({ title, content, image }) => {
   console.log("Title:", title);
@@ -6,13 +6,13 @@ const ViewPost = ({ title, content, image }) => {
   console.log("Image:", image);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-lg w-full">
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-lg">
         {image && (
-          <img src={image} alt={title} className="w-full h-64 object-cover" />
+          <img src={image} alt={title} className="h-64 w-full object-cover" />
         )}
         <div className="p-6">
-          <h2 className="text-2xl font-bold mb-4">{title}</h2>
+          <h2 className="mb-4 text-2xl font-bold">{title}</h2>
           <p className="text-gray-600">{content}</p>
         </div>
       </div>
