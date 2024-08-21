@@ -2,39 +2,39 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./routes/Root";
+import Root from "./routes/root";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import Post from "./pages/Post"; // Import the PostPage component
+import Post from "./pages/Post";
 import ErrorPage from "./error-page";
 import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Login />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "/",
+    element: <Root />,
     children: [
       {
-        path: "home",
+        path: "/home",
         element: <Home />,
       },
       {
-        path: "signup",
+        path: "/signup",
         element: <Signup />,
       },
       {
-        path: "profile",
+        path: "/profile",
         element: <Profile />,
       },
       {
-        path: "post",
-        element: <Post />, // Add the route for the PostPage
-      },
-      {
-        path: "login",
-        element: <Login />, // Add the route for the PostPage
+        path: "/post",
+        element: <Post />,
       },
     ],
   },
