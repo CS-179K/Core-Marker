@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../components/Signup.css";
-import logo from "../assets/logo.png"; // Adjust the path if needed
+/// import logo from "../assets/logo.png"; // Adjust the path if needed
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -41,53 +40,69 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup-page">
-      <div className="flex justify-center">
-        <img src={logo} alt="Core-Marker Logo" className="logo" />
-      </div>
-      <h1 className="title">Core-Marker</h1>
-      <div className="signup-container">
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
+    <div className="m-0 h-screen">
+      {/* <div className="flex justify-center">
+        <img src={logo} alt="Core-Marker Logo" className="logo w-20" />
+      </div> */}
+
+      <div className="flex flex-col items-center justify-center border-4">
+        <div className="rounded-md border-4 bg-slate-50 p-10">
+          <div className="mb-6 text-center text-2xl">Core Marker</div>
+          <div className="mb-2 font-semibold">Create an Account.</div>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group"></div>
             <label>Email:</label>
-            <input
-              className="rounded-md border-2 border-gray-600"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <div>
+              <input
+                className="r rounded-md border border-gray-400 py-2 pl-2 pr-20"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <label>Password:</label>
+            </div>
+            <div>
+              <input
+                className="rounded-md border-2 border-gray-600"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <label>Confirm Password:</label>
+            </div>
+            <div>
+              <input
+                className="rounded-md border-2 border-gray-600"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mt-4 border-2 text-center">
+              <button className="p-1" type="submit">
+                Sign Up
+              </button>
+            </div>
+          </form>
+          <div>
+            <p className="mt-4">
+              Already have an account? <br></br>
+              <button
+                onClick={() => navigate("/")}
+                className="rounded-md border-2 border-gray-600 p-1"
+              >
+                Log In here
+              </button>
+            </p>
           </div>
-          <div className="input-group">
-            <label>Password:</label>
-            <input
-              className="rounded-md border-2 border-gray-600"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>Confirm Password:</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <p className="mt-4">
-          Already have an account?{" "}
-          <button
-            onClick={() => navigate("/")}
-            className="text-white hover:underline"
-          >
-            Log In here
-          </button>
-        </p>
+        </div>
       </div>
     </div>
   );
