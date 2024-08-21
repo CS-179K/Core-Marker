@@ -27,6 +27,12 @@ const Navbar = () => {
           >
             My Profile
           </Link>
+          <Link
+            to="/Feedback"
+            className="text-white hover:text-gray-400 transition duration-300"
+          >
+             Form
+          </Link>
         </div>
       </div>
     </nav>

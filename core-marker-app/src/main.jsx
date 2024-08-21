@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Post from "./pages/Post"; // Import the PostPage component
 import ErrorPage from "./error-page";
 import Login from "./pages/Login";
+import FeedbackForm from "./pages/Feedback";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />, // Add the route for the PostPage
       },
+      {
+        path: "Feedback",
+        element: <FeedbackForm />,
+      }
     ],
   },
 ]);
