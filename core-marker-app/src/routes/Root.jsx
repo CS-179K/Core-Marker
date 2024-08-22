@@ -1,13 +1,16 @@
-import Navbar from "../components/Navbar"; // Import Navbar
-import { Outlet } from "react-router-dom"; // Import Outlet
+import { Outlet, useLocation } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Root() {
+  const location = useLocation();
+
+  const hideNavbarPaths = ["/", "/signup"];
+  const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
+
   return (
     <>
-      <Navbar /> {/* Include Navbar */}
-      <main>
-        <Outlet /> {/* Render the child routes here */}
-      </main>
+      {shouldShowNavbar && <Navbar />}
+      <Outlet />
     </>
   );
 }

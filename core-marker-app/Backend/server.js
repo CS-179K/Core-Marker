@@ -20,7 +20,7 @@ const app = express();
 const port = 8080;
 
 app.use(cors());
-app.use(bodyParser.json()); // Middleware to parse JSON
+app.use(bodyParser.json());
 
 app.use(
   mongoSanitize({
@@ -30,7 +30,6 @@ app.use(
   }),
 );
 
-// Mock User Schema for demonstration
 const userSchema = new mongoose.Schema({
   email: String,
   password: String, // This should be hashed in a real application
