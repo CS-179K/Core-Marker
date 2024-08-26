@@ -29,20 +29,22 @@ This is a Web app called “Core Marker” where people can write about their pe
 ## Build and Installation: 
   There are two sets of installations necessary, one set for the Frontend and another set for the Backend.
   Frontend installations:
-    - npm install
-    - npm install @emailjs/browser
-    - npm install --save @chakra-ui/react
-    - npm install jwt-decode
+  - npm install
+  - npm install @emailjs/browser
+  - npm install --save @chakra-ui/react
+  - npm install jwt-decode
+
   Backend installations:
-    - npm install
-    - npm install cors
-    - npm install express
-    - npm install mongoose
-    - npm install express-mongo-sanitize
-    - npm install nodemon
-    - npm install dotenv --save
-    - npm install bcryptjs 
-    - npm install jsonwebtoken
+
+  - npm install
+  - npm install cors
+  - npm install express
+  - npm install mongoose
+  - npm install express-mongo-sanitize
+  - npm install nodemon
+  - npm install dotenv --save
+  - npm install bcryptjs 
+  - npm install jsonwebtoken
 
 ## Features: 
 - As a new unregistered user I want to register an account so I can login in the future to use the App and all of its features. Story points 2, Priority 1
