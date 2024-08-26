@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import "../components/Navbar.css"; // Optional custom styles
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-indigo-900 p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="text-2xl font-semibold text-white">
           <Link to="/">Core-Marker</Link>
@@ -31,7 +30,7 @@ const Navbar = () => {
             to="/login"
             className="text-white transition duration-300 hover:text-gray-400"
           >
-            Login 
+            Login
           </Link>
           <Link
             to="/signup"
@@ -41,9 +40,9 @@ const Navbar = () => {
           </Link>
           <Link
             to="/Feedback"
-            className="text-white hover:text-gray-400 transition duration-300"
+            className="text-white transition duration-300 hover:text-gray-400"
           >
-             Form
+            Form
           </Link>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../components/PostPage.css"; // Create this file for custom styles if needed
+// Create this file for custom styles if needed
 
 const Page = () => {
   const [image, setImage] = useState(null);
