@@ -41,7 +41,6 @@ This is a Web app called “Core Marker” where people can write about their pe
   - npm install express
   - npm install mongoose
   - npm install express-mongo-sanitize
-  - npm install nodemon
   - npm install dotenv --save
   - npm install bcryptjs 
   - npm install jsonwebtoken
