@@ -8,6 +8,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
+const app = express();
+const port = 5001;
+app.use(cors());
+app.use(express.json());
 app.use(
   mongoSanitize({
     onSanitize: ({ req, key }) => {
@@ -15,11 +19,6 @@ app.use(
     },
   }),
 );
-
-const app = express();
-const port = 5001;
-app.use(cors());
-app.use(express.json());
 
 dotenv.config();
 
