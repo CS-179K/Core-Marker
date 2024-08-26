@@ -47,12 +47,13 @@ This is a Web app called “Core Marker” where people can write about their pe
     
 ## Running the Program:
   1: Open a Backend Server terminal
+  - cd into "core-marker-app"
   - cd into "Backend"
-  - node mongodb.js
+  - run "node mongodb.js"
 
   2: Open a Frontend Server terminal
   - cd into "core-marker-app"
-  - npm run dev 
+  - run "npm run dev" 
 
   3: Open local host, create an account, and post away!
   
