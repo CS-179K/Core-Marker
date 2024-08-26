@@ -37,4 +37,4 @@ This is a Web app called “Core Marker” where people can write about their pe
 - As an active user I want to contact the developers so I can give feedback or report problems about the App. Story points 2, Priority 8
 
 ## Burndown Chart:
-![alt text]([https://github.com/CS-179K/Core-Marker/blob/070aa1885733f40589fb083981a7c24885947bb8/Burndown-Chart-Sprint2.jpg](https://github.com/CS-179K/Core-Marker/blob/main/BurndownChart-final.png))
+![alt text](BurndownChart-final.png)
