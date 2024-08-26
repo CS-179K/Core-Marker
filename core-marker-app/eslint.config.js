@@ -37,9 +37,5 @@ export default [
         { allowConstantExport: true },
       ],
     },
-    env: {
-      browser: true,
-      node: true, // Add this line to recognize Node.js global variables
-    },
   },
 ];
