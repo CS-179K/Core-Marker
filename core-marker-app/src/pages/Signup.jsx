@@ -13,6 +13,11 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!username || !email || !password || !confirmPassword) {
+      alert("All fields are required!");
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -31,9 +36,9 @@ const SignUp = () => {
 
       if (response.ok) {
         alert("Signup successful! Redirecting to login...");
-        navigate("/"); // Navigate to the login page
+        navigate("/"); 
       } else {
-        alert(data.message);
+        alert(`Signup Unsuccessful: ${data.message || "Unknown error occurred"}`);
       }
     } catch (error) {
       console.error("Error:", error);

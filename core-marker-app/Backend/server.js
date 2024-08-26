@@ -31,24 +31,30 @@ app.use(
 );
 
 // Mock User Schema for demonstration
-const userSchema = new mongoose.Schema({
+/*const userSchema = new mongoose.Schema({
   email: String,
   password: String, // This should be hashed in a real application
-}); 
+}); */
 
-const User = mongoose.model("User", userSchema);
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true},
+  email: { type: String, required: true, unique: true},
+  password: { type: String, required: true} 
+});
+
+const User = mongoose.model('User', userSchema);
 
 // Signup route
 app.post("/api/signup", async (req, res) => {
-  const { Username, Email, Password } = req.body;
+  const { username, email, password, } = req.body;
 
-  if (!Username || !Email || !Password) {
+  if (!username || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
     // Check if user already exists
-    const existingUser = await User.findOne({ Email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already in use" });
     }
@@ -57,9 +63,9 @@ app.post("/api/signup", async (req, res) => {
 
     // Create a new user
     const newUser = new User({
-      Username,
-      Email,
-      Password
+      username,
+      email,
+      password
     });
 
     // Save the user to the database
