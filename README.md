@@ -44,7 +44,18 @@ This is a Web app called “Core Marker” where people can write about their pe
   - npm install dotenv --save
   - npm install bcryptjs 
   - npm install jsonwebtoken
+    
+## Running the Program:
+  1: Open a Backend Server terminal
+  - cd into "Backend"
+  - node mongodb.js
 
+  2: Open a Frontend Server terminal
+  - cd into "core-marker-app"
+  - npm run dev 
+
+  3: Open local host, create an account, and post away!
+  
 ## Features: 
 - As a new unregistered user I want to register an account so I can login in the future to use the App and all of its features. Story points 2, Priority 1
 - As a registered user I want to login using my username and password so I can later log out of my account. Story points 2, Priority 2
