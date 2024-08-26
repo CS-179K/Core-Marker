@@ -11,9 +11,15 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "@emailjs/browser": "^4.4.1",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "cookie-parser": "^1.4.6",
     "emailjs-com": "^3.2.0",
+    "framer-motion": "^11.3.30",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
