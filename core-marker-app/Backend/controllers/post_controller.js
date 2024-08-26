@@ -48,7 +48,7 @@ export const updatePost = async (req, res) => {
     const updatePost = await Post.findByIdAndUpdate(id, post, { new: true });
     res.status(200).json({ success: true, data: updatePost });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Server Error" });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -59,7 +59,7 @@ export const deletePost = async (req, res) => {
     await Post.findByIdAndDelete(id);
     res.status(200).json({ success: true, message: "Post deleted" });
   } catch (error) {
-    res.status(404).json({ success: false, message: "Post not found" });
+    res.status(404).json({ success: false, message: error.message });
   }
 };
 

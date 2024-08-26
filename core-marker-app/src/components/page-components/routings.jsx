@@ -10,7 +10,6 @@ import Post from "./pages/Post";
 import ErrorPage from "./error-page";
 import Login from "./pages/Login";
 import FeedbackForm from "./pages/Feedback";
-import FeedbackForm from "./pages/Feedback";
 
 const router = createBrowserRouter([
   {
