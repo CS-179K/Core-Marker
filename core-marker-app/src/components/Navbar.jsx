@@ -27,10 +27,22 @@ const Navbar = () => {
             My Profile
           </Link>
           <Link
+            to="/login"
+            className="text-white transition duration-300 hover:text-gray-400"
+          >
+            Login
+          </Link>
+          <Link
             to="/signup"
             className="text-white transition duration-300 hover:text-gray-400"
           >
-            Sign Up
+            Signup
+          </Link>
+          <Link
+            to="/Feedback"
+            className="text-white transition duration-300 hover:text-gray-400"
+          >
+            Form
           </Link>
         </div>
       </div>
