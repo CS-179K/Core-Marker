@@ -11,41 +11,40 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-function Login() {
+function Register() {
   const history = useNavigate();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function loginUser(event) {
+  async function registerUser(event) {
     event.preventDefault();
-    console.log("Submitting login form with:", { email, password });
-    const response = await fetch("http://localhost:5001/api/login", {
+
+    const response = await fetch("http://localhost:5001/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        username,
         email,
         password,
       }),
     });
 
     const data = await response.json();
-    console.log(data.user);
 
-    if (data.user) {
-      localStorage.setItem("token", data.user);
-      console.log("login successful");
-      window.location.href = "/dashboard";
+    if (data.status === "ok") {
+      history("/login");
     } else {
-      console.log("please check your username and password");
+      console.log("Could not sign in user");
     }
   }
 
-  function handleRedirectToRegister() {
+  function handleRedirectToLogin() {
     try {
-      history("/register");
-      console.log("redirecting to register");
+      history("/login");
+      console.log("Redirecting to login");
     } catch (e) {
       console.error(`${e.name}: ${e.message}`);
     }
@@ -62,10 +61,21 @@ function Login() {
       <Box w="400px" p="8" bg="white" boxShadow="md" borderRadius="lg">
         <VStack spacing="6">
           <Heading as="h1" size="lg" mb="6">
-            Login
+            Core Marker
           </Heading>
-          <form onSubmit={loginUser}>
-            <VStack spacing="4">
+          <form onSubmit={registerUser}>
+            <VStack spacing="4" width="100%">
+              <FormControl id="username" isRequired>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  width="100%" // Set width to 100%
+                />
+              </FormControl>
+
               <FormControl id="email" isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
@@ -73,6 +83,7 @@ function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
+                  width="100%" // Set width to 100%
                 />
               </FormControl>
 
@@ -83,23 +94,24 @@ function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
+                  width="100%" // Set width to 100%
                 />
               </FormControl>
 
-              <Button type="submit" colorScheme="teal" width="full">
-                Login
+              <Button type="submit" colorScheme="teal" width="100%">
+                Register
               </Button>
             </VStack>
           </form>
 
-          <Text mt="4">New user?</Text>
+          <Text mt="4">Already have an account?</Text>
           <Button
-            onClick={handleRedirectToRegister}
+            onClick={handleRedirectToLogin}
             colorScheme="blue"
             variant="outline"
-            width="full"
+            width="100%"
           >
-            Sign up
+            Sign in
           </Button>
         </VStack>
       </Box>
@@ -107,4 +119,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

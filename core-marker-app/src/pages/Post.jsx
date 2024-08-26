@@ -1,82 +1,158 @@
 import { useState } from "react";
-import "../components/PostPage.css"; // Create this file for custom styles if needed
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Heading,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import NavBar from "../components/Navbar";
 
-const Page = () => {
-  const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const Post = () => {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    location: "",
+    imageUrl: "",
+  });
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const toast = useToast();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5001/api/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast({
+          title: "Post created.",
+          description: "Your post has been successfully created.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        setForm({
+          title: "",
+          description: "",
+          location: "",
+          imageUrl: "",
+        });
+      } else {
+        toast({
+          title: "Error.",
+          description: data.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error.",
+        description: "An error occurred while creating the post.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would handle form submission, e.g., send the data to a server
-    console.log("Title:", title);
-    console.log("Description:", description);
-    console.log("Image:", image);
-  };
-
   return (
-    <div className="post-page p-8">
-      <h1 className="mb-4 text-2xl font-bold">Create a New Post</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="form-group">
-          <label className="block text-sm font-medium">Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded-md border-2 border-gray-300 p-2"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label className="block text-sm font-medium">Description:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full rounded-md border-2 border-gray-300 p-2"
-            rows="4"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label className="block text-sm font-medium">Image Upload:</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="rounded-md border-2 border-gray-300 p-2"
-            required
-          />
-          {image && (
-            <div className="mt-4">
-              <img
-                src={image}
-                alt="Preview"
-                className="h-64 w-full rounded-md border-2 border-gray-300 object-cover"
-              />
-            </div>
-          )}
-        </div>
-        <button
-          type="submit"
-          className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+    <div>
+      <NavBar />
+      <Box p={5} maxW="600px" mx="auto">
+        <Heading mb={6}>Create a New Post</Heading>
+        <Box
+          as="form"
+          onSubmit={handleSubmit}
+          bg="white"
+          p={6}
+          borderRadius="md"
+          boxShadow="md"
         >
-          Post
-        </button>
-      </form>
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="title">Title</FormLabel>
+            <Input
+              id="title"
+              name="title"
+              type="text"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="Enter the title"
+            />
+          </FormControl>
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="description">Description</FormLabel>
+            <Textarea
+              id="description"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Enter the description"
+            />
+          </FormControl>
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="location">Location</FormLabel>
+            <Input
+              id="location"
+              name="location"
+              type="text"
+              value={form.location}
+              onChange={handleChange}
+              placeholder="Enter the location"
+            />
+          </FormControl>
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="imageUrl">Image URL</FormLabel>
+            <Input
+              id="imageUrl"
+              name="imageUrl"
+              type="text"
+              value={form.imageUrl}
+              onChange={handleChange}
+              placeholder="Enter the image URL"
+            />
+          </FormControl>
+          <Button type="submit" colorScheme="teal" width="full">
+            Submit
+          </Button>
+          {error && (
+            <Text color="red.500" mt={4}>
+              {error}
+            </Text>
+          )}
+          {success && (
+            <Text color="green.500" mt={4}>
+              {success}
+            </Text>
+          )}
+        </Box>
+      </Box>
     </div>
   );
 };
 
-export default Page;
+export default Post;
