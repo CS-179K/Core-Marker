@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Heading,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 
-function App() {
+function Login() {
   const history = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,33 +52,59 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={loginUser}>
-        <br />
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="email"
-        />
-        <br />
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="password"
-        />
-        <br />
-        <input type="submit" value="Login" />
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      height="100vh"
+      bg="gray.100"
+    >
+      <Box w="400px" p="8" bg="white" boxShadow="md" borderRadius="lg">
+        <VStack spacing="6">
+          <Heading as="h1" size="lg" mb="6">
+            Login
+          </Heading>
+          <form onSubmit={loginUser}>
+            <VStack spacing="4">
+              <FormControl id="email" isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                />
+              </FormControl>
 
-        <p>New user?</p>
-        <button type="button" onClick={handleRedirectToRegister}>
-          Sign up
-        </button>
-      </form>
-    </div>
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                />
+              </FormControl>
+
+              <Button type="submit" colorScheme="teal" width="full">
+                Login
+              </Button>
+            </VStack>
+          </form>
+
+          <Text mt="4">New user?</Text>
+          <Button
+            onClick={handleRedirectToRegister}
+            colorScheme="blue"
+            variant="outline"
+            width="full"
+          >
+            Sign up
+          </Button>
+        </VStack>
+      </Box>
+    </Box>
   );
 }
 
-export default App;
+export default Login;

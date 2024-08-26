@@ -1,4 +1,5 @@
 import Post from "../models/post_model.js";
+import mongoose from "mongoose";
 
 export const getAllPosts = async (req, res) => {
   try {
@@ -11,22 +12,27 @@ export const getAllPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const post = req.body;
+  const { title, description, location, imageUrl } = req.body;
 
-  if (!post.title || !post.description || !post.location) {
+  if (!title || !description || !location || !imageUrl) {
     return res
       .status(400)
-      .json({ status: false, message: "please provide all fields" });
+      .json({ success: false, message: "Please provide all fields" });
   }
 
-  const newPost = new Post(post);
+  const newPost = new Post({
+    title,
+    description,
+    location,
+    imageUrl,
+  });
 
   try {
-    await newPost.save();
-    res.status(201).json({ sucess: true, data: newPost });
+    const savedPost = await newPost.save();
+    res.status(201).json({ success: true, data: savedPost });
   } catch (error) {
     console.error("Error in creating Post:", error.message);
-    res.status(500).json({ sucess: false, message: "Server Eror" });
+    res.status(500).json({ success: false, message: "Server Error" });
   }
 };
 
@@ -51,9 +57,17 @@ export const deletePost = async (req, res) => {
 
   try {
     await Post.findByIdAndDelete(id);
-    res.status(200).json({ success: true, message: "post deleted" });
+    res.status(200).json({ success: true, message: "Post deleted" });
   } catch (error) {
-    res.status(404).json({ success: false, message: "product not found" });
+    res.status(404).json({ success: false, message: "Post not found" });
   }
-  console.log("id:", id);
+};
+
+export const getPostsByUser = async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.params.userId });
+    res.json({ success: true, data: posts });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 };

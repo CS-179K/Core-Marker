@@ -10,7 +10,10 @@ export default [
     ignores: ["dist"],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node, // Add Node.js globals
+      },
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
@@ -33,6 +36,10 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
+    },
+    env: {
+      browser: true,
+      node: true, // Add this line to recognize Node.js global variables
     },
   },
 ];

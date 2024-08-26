@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Heading,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 
-function App() {
+function Register() {
   const history = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -27,52 +37,86 @@ function App() {
     if (data.status === "ok") {
       history("/login");
     } else {
-      console.log("could not sign in user");
+      console.log("Could not sign in user");
     }
   }
 
   function handleRedirectToLogin() {
     try {
       history("/login");
-      console.log("redirecting to login");
+      console.log("Redirecting to login");
     } catch (e) {
       console.error(`${e.name}: ${e.message}`);
     }
   }
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={registerUser}>
-        <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          type="text"
-          placeholder="username"
-        />
-        <br />
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="email"
-        />
-        <br />
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="password"
-        />
-        <br />
-        <input type="submit" value="Register" />
-        <p>Already have a account?</p>
-        <button type="button" onClick={handleRedirectToLogin}>
-          Sign in
-        </button>
-      </form>
-    </div>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      height="100vh"
+      bg="gray.100"
+    >
+      <Box w="400px" p="8" bg="white" boxShadow="md" borderRadius="lg">
+        <VStack spacing="6">
+          <Heading as="h1" size="lg" mb="6">
+            Core Marker
+          </Heading>
+          <form onSubmit={registerUser}>
+            <VStack spacing="4" width="100%">
+              <FormControl id="username" isRequired>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  width="100%" // Set width to 100%
+                />
+              </FormControl>
+
+              <FormControl id="email" isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  width="100%" // Set width to 100%
+                />
+              </FormControl>
+
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  width="100%" // Set width to 100%
+                />
+              </FormControl>
+
+              <Button type="submit" colorScheme="teal" width="100%">
+                Register
+              </Button>
+            </VStack>
+          </form>
+
+          <Text mt="4">Already have an account?</Text>
+          <Button
+            onClick={handleRedirectToLogin}
+            colorScheme="blue"
+            variant="outline"
+            width="100%"
+          >
+            Sign in
+          </Button>
+        </VStack>
+      </Box>
+    </Box>
   );
 }
 
-export default App;
+export default Register;

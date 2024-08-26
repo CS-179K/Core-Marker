@@ -18,12 +18,16 @@ const UserSchema = new mongoose.Schema(
     quote: {
       type: String,
     },
+    avatar: {
+      type: String,
+      default: "44.png",
+    },
   },
   {
     timestamps: true,
   },
 );
 
-const User = mongoose.model("user", UserSchema);
+const User = mongoose.model("User", UserSchema);
 
 export default User;
