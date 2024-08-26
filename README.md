@@ -26,6 +26,25 @@ This is a Web app called “Core Marker” where people can write about their pe
 - We will use Firebase or Auth0 to create a verification/business account option which could be used by our users.
 - We will use Firebase or MongoDB well to create our database for our users.
 
+## Build and Installation: 
+  There are two sets of installations necessary, one set for the Frontend and another set for the Backend.
+  Frontend installations:
+  - npm install
+  - npm install @emailjs/browser
+  - npm install --save @chakra-ui/react
+  - npm install jwt-decode
+
+  Backend installations:
+
+  - npm install
+  - npm install cors
+  - npm install express
+  - npm install mongoose
+  - npm install express-mongo-sanitize
+  - npm install dotenv --save
+  - npm install bcryptjs 
+  - npm install jsonwebtoken
+
 ## Features: 
 - As a new unregistered user I want to register an account so I can login in the future to use the App and all of its features. Story points 2, Priority 1
 - As a registered user I want to login using my username and password so I can later log out of my account. Story points 2, Priority 2
@@ -37,4 +56,4 @@ This is a Web app called “Core Marker” where people can write about their pe
 - As an active user I want to contact the developers so I can give feedback or report problems about the App. Story points 2, Priority 8
 
 ## Burndown Chart:
-![alt text](https://github.com/CS-179K/Core-Marker/blob/070aa1885733f40589fb083981a7c24885947bb8/Burndown-Chart-Sprint2.jpg)
+![alt text](BurndownChart-final.png)
