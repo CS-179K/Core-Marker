@@ -1,26 +1,12 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt"); // For password hashing
-const cors = require("cors");
-const mongoSanitize = require("express-mongo-sanitize");
-const bodyParser = require("body-parser"); // To parse JSON request bodies
-
-const mongoDB_ConnectionString =
-  "mongodb+srv://Maker424:CS179K-Project-Legend@core-marker-database.lsbe7.mongodb.net/?retryWrites=true&w=majority&appName=Core-Marker-Database";
-
-mongoose
-  .connect(mongoDB_ConnectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to Core-Marker MongoDB"))
-  .catch((error) => console.error("Could not connect to MongoDB:", error));
-
-const app = express();
-const port = 8080;
-
-app.use(cors());
-app.use(bodyParser.json());
+import mongoSanitize from "express-mongo-sanitize";
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import User from "./models/user_model.js";
+import postRoutes from "./routes/post_route.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 app.use(
   mongoSanitize({
@@ -30,78 +16,114 @@ app.use(
   }),
 );
 
-const userSchema = new mongoose.Schema({
-  email: String,
-  password: String, // This should be hashed in a real application
-}); */
+const app = express();
+const port = 5001;
+app.use(cors());
+app.use(express.json());
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true},
-  email: { type: String, required: true, unique: true},
-  password: { type: String, required: true} 
+dotenv.config();
+
+app.use("/api/upload", postRoutes);
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("You are connected to Mongodb");
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+};
+app.listen(port, () => {
+  connectDB();
+  console.log("Server port: 5001 ");
 });
 
-const User = mongoose.model('User', userSchema);
-
-// Signup route
-app.post("/api/signup", async (req, res) => {
-  const { username, email, password, } = req.body;
-
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
+app.post("/api/register", async (req, res) => {
   try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already in use" });
-    }
+    const newPassword = await bcrypt.hash(req.body.password, 10);
+    console.log("create hashed password for user");
 
-    // Hash the password here
-
-    // Create a new user
-    const newUser = new User({
-      username,
-      email,
-      password
+    const user = new User({
+      name: req.body.username,
+      email: req.body.email,
+      password: newPassword,
     });
 
-    // Save the user to the database
-    await newUser.save();
+    await user.save();
 
-    // Respond with success message
-    res.status(201).json({ message: "User created successfully" });
-  } catch (error) {
-    console.error("Error signing up user:", error);
-    res.status(500).json({ message: "Server error" });
+    res.json({ status: "ok" });
+    console.log("user saved to database");
+  } catch (err) {
+    console.error(err);
+    res.json({ status: "error", error: "Could not save user" });
   }
 });
 
-// Login route
 app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
+  console.log("Login route hit");
+  console.log("Login attempt with data:", req.body);
+  const user = await User.findOne({
+    email: req.body.email,
+  });
+
+  if (!user) {
+    return res.json({ status: "error", error: "Invalid login" });
+  }
+
+  console.log("User found:", user);
+  console.log("original password", req.body.password);
+  console.log("Password hash from db:", user.password);
+  const isPasswordValid = await bcrypt.compare(
+    req.body.password,
+    user.password,
+  );
+  console.log("Is the password valid?", isPasswordValid);
+  if (isPasswordValid) {
+    console.log("Password is validated");
+    const token = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      "secret123",
+    );
+
+    return res.json({ status: "ok", user: token });
+  } else {
+    return res.json({ status: "error", user: false });
+  }
+});
+
+app.get("/api/quote", async (req, res) => {
+  const token = req.headers["x-access-token"];
 
   try {
-    const user = await User.findOne({ email });
+    const decoded = jwt.verify(token, "secret123");
+    const email = decoded.email;
+    const user = await User.findOne({ email: email });
 
-    if (!user) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
-
-    // Compare password with stored hash
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
-
-    // If authentication is successful, send a success response
-    res.status(200).json({ message: "Login successful" });
+    return res.json({ status: "ok", quote: user.quote });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.post("/api/quote", async (req, res) => {
+  const token = req.headers["x-access-token"];
+
+  try {
+    const decoded = jwt.verify(token, "secret123");
+    const email = decoded.email;
+    await User.updateOne({ email: email }, { $set: { quote: req.body.quote } });
+
+    return res.json({ status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
