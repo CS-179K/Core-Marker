@@ -70,6 +70,7 @@ const Post = () => {
         });
       }
     } catch (error) {
+      console.log("Error:", error.message);
       toast({
         title: "Error.",
         description: "An error occurred while creating the post.",
