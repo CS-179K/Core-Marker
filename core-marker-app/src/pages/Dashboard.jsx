@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Grid, Image, Text, Heading } from "@chakra-ui/react";
+import { Box, Grid, Image, Text, Heading, Button, Link, useDisclosure, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Input } from "@chakra-ui/react";
+import { Heart } from 'lucide-react';
 import NavBar from "../components/Navbar";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null); // Define selectedPost state
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -19,7 +22,26 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, []); // Consider adding a dependency if you want to refetch posts
+  }, []);
+
+  const toggleLike = (postId) => {
+    const updatedPosts = posts.map((post) => {
+      if (post._id === postId) {
+        return {
+          ...post,
+          likes: post.liked ? post.likes - 1 : post.likes + 1,
+          liked: !post.liked,
+        };
+      }
+      return post;
+    });
+    setPosts(updatedPosts);
+  };
+  
+  const handleOpenComments = (post) => {
+    setSelectedPost(post);
+    onOpen();
+  };
 
   return (
     <div>
@@ -54,14 +76,52 @@ const Dashboard = () => {
                 <Text mt="2" fontWeight="bold">
                   Location: {post.location}
                 </Text>
-                <Text mt="2" color="gray.500">
-                  {post.likes} Likes
-                </Text>
+                <Box mt="2" display="flex" alignItems="center" justifyContent="space-between">
+                <Box display="flex" alignItems="center">
+                    <Heart
+                      onClick={() => toggleLike(post)}
+                      style={{
+                        cursor: 'pointer',
+                        fill: post.liked ? 'red' : 'none',
+                        stroke: 'black'
+                      }}
+                    />
+                    <Text color="gray.500" ml={2}>{post.likes} Likes</Text>
+                  </Box>
+                  <Link
+                    color="teal.500"
+                    onClick={() => handleOpenComments(post)}
+                    cursor="pointer"
+                    textDecoration="underline"
+                    mr={1}
+                  >
+                    View All Comments
+                  </Link>
+                </Box>
               </Box>
             </Box>
           ))}
         </Grid>
       </Box>
+      {selectedPost && (
+        <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Comments for {selectedPost.title}</DrawerHeader>
+            <DrawerBody>
+              <Input placeholder="Type your comment here..." />
+              {/* Additional UI elements for displaying existing comments */}
+            </DrawerBody>
+            <DrawerFooter>
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button colorScheme="blue">Post Comment</Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      )}    
     </div>
   );
 };
