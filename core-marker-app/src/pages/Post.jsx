@@ -109,6 +109,7 @@ const Post = () => {
               value={form.description}
               onChange={handleChange}
               placeholder="Enter the description"
+              maxLength={200}
             />
           </FormControl>
           <FormControl mb={4} isRequired>
