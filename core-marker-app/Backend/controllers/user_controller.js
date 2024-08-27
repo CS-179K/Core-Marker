@@ -12,7 +12,7 @@ export const getUser = async (req, res) => {
 
   try {
     const decoded = jwt.verify(token, "secret123");
-    console.log("Token decoded:", decoded);
+    //console.log("Token decoded:", decoded);
     const userId = decoded.userId;
     const user = await User.findById(userId);
     if (!user) {
@@ -21,7 +21,7 @@ export const getUser = async (req, res) => {
         .status(404)
         .json({ status: "error", message: "User not found" });
     }
-    console.log("User found:", user);
+    // console.log("User found:", user);
     res.json({ status: "ok", user });
   } catch (error) {
     console.log("Error verifying token or fetching user:", error.message);
