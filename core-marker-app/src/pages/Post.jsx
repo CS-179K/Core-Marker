@@ -75,6 +75,12 @@ const Post = () => {
         isClosable: true,
       });
     }
+    setForm({
+      title: "",
+      description: "",
+      location: "",
+      imageUrl: "",
+    });
   };
 
   return (
