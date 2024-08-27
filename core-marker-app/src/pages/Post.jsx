@@ -7,7 +7,6 @@ import {
   Input,
   Textarea,
   Heading,
-  Text,
   useToast,
 } from "@chakra-ui/react";
 import NavBar from "../components/Navbar";
@@ -20,8 +19,6 @@ const Post = () => {
     imageUrl: "",
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const toast = useToast();
 
   const handleChange = (e) => {
@@ -69,7 +66,7 @@ const Post = () => {
           isClosable: true,
         });
       }
-    } catch (error) {
+    } catch {
       toast({
         title: "Error.",
         description: "An error occurred while creating the post.",
@@ -139,16 +136,6 @@ const Post = () => {
           <Button type="submit" colorScheme="teal" width="full">
             Submit
           </Button>
-          {error && (
-            <Text color="red.500" mt={4}>
-              {error}
-            </Text>
-          )}
-          {success && (
-            <Text color="green.500" mt={4}>
-              {success}
-            </Text>
-          )}
         </Box>
       </Box>
     </div>
