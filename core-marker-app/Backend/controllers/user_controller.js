@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const getUser = async (req, res) => {
   const token = req.headers["x-access-token"];

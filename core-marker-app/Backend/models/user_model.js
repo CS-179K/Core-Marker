@@ -15,9 +15,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    quote: {
-      type: String,
-    },
     avatar: {
       type: String,
       default: "44.png",
