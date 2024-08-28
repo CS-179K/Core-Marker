@@ -52,53 +52,6 @@ function NavBar() {
   };
 
   return (
-<<<<<<< HEAD
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="text-2xl font-semibold text-white">
-          <Link to="/">Core-Marker</Link>
-        </div>
-        <div className="space-x-4">
-          <Link
-            to="/home"
-            className="text-white transition duration-300 hover:text-gray-400"
-          >
-            Home
-          </Link>
-          <Link
-            to="/post"
-            className="text-white transition duration-300 hover:text-gray-400"
-          >
-            Post
-          </Link>
-          <Link
-            to="/profile"
-            className="text-white transition duration-300 hover:text-gray-400"
-          >
-            My Profile
-          </Link>
-          <Link
-            to="/login"
-            className="text-white transition duration-300 hover:text-gray-400"
-          >
-            Login 
-          </Link>
-          <Link
-            to="/signup"
-            className="text-white transition duration-300 hover:text-gray-400"
-          >
-            Signup
-          </Link>
-          <Link
-            to="/Feedback"
-            className="text-white hover:text-gray-400 transition duration-300"
-          >
-             CONTACT US 
-          </Link>
-        </div>
-      </div>
-    </nav>
-=======
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <HStack spacing={8} alignItems="center">
@@ -191,7 +144,6 @@ function NavBar() {
         </Flex>
       </Flex>
     </Box>
->>>>>>> 300c4d8186b908c2f399820e3c67a7967ac4b0b7
   );
 }
 

@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/upload"); // Ensure the URL matches your API
+        const response = await fetch("http://localhost:5001/api/upload");
         const data = await response.json();
         if (data.success) {
           setPosts(data.data);
@@ -22,26 +22,7 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, []);
-
-  const toggleLike = (postId) => {
-    const updatedPosts = posts.map((post) => {
-      if (post._id === postId) {
-        return {
-          ...post,
-          likes: post.liked ? post.likes - 1 : post.likes + 1,
-          liked: !post.liked,
-        };
-      }
-      return post;
-    });
-    setPosts(updatedPosts);
-  };
-  
-  const handleOpenComments = (post) => {
-    setSelectedPost(post);
-    onOpen();
-  };
+  }, []); // Consider adding a dependency if you want to refetch posts
 
   return (
     <div>

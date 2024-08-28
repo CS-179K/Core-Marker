@@ -31,7 +31,7 @@ function Login() {
     });
 
     const data = await response.json();
-    console.log(data.user);
+    console.log("Show login data:", data.user);
 
     if (data.user) {
       localStorage.setItem("token", data.user);
