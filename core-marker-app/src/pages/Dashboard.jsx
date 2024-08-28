@@ -24,6 +24,27 @@ const Dashboard = () => {
     fetchPosts();
   }, []); // Consider adding a dependency if you want to refetch posts
 
+  const handleOpenComments = (post) => {
+    setSelectedPost(post);
+    onOpen(); // Opens the Drawer
+  };
+  
+  const toggleLike = (post) => {
+    // Assuming you have some API or logic to update likes in the backend
+    const updatedPosts = posts.map((p) => {
+      if (p._id === post._id) {
+        return {
+          ...p,
+          liked: !p.liked,
+          likes: p.liked ? p.likes - 1 : p.likes + 1,
+        };
+      }
+      return p;
+    });
+  
+    setPosts(updatedPosts);
+  };
+  
   return (
     <div>
       <NavBar />
