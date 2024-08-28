@@ -75,9 +75,9 @@ app.post("/api/login", async (req, res) => {
     return res.json({ status: "error", error: "Invalid login" });
   }
 
-  console.log("User found:", user);
-  console.log("original password", req.body.password);
-  console.log("Password hash from db:", user.password);
+  // console.log("User found:", user);
+  // console.log("original password", req.body.password);
+  // console.log("Password hash from db:", user.password);
   const isPasswordValid = await bcrypt.compare(
     req.body.password,
     user.password,

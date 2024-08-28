@@ -1,5 +1,3 @@
-// models/post_model.js
-
 import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema(
@@ -25,16 +23,11 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: false,
+      required: true,
     },
-    comments: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comments",
-      required: false,
-    }],
   },
   {
     timestamps: true,
