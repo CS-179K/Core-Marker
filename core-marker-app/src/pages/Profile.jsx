@@ -21,12 +21,16 @@ const Profile = () => {
           throw new Error(
             `User API call failed with status ${response.status}`,
           );
+        } else {
+          console.log("User response ok!");
         }
 
         const userResponse = await response.json();
 
         if (userResponse.status === "ok") {
           const userId = userResponse.user._id;
+          console.log("User ID:", userId);
+
           const postsResponse = await fetch(
             `http://localhost:5001/api/user/${userId}`,
             {
