@@ -30,10 +30,7 @@ app.use("/api/user", userRoutes);
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("You are connected to Mongodb");
   } catch (error) {
     console.error(error.message);
