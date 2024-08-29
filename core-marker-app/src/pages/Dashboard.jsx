@@ -1,6 +1,23 @@
 import { useEffect, useState } from "react";
-import { Box, Grid, Image, Text, Heading, Button, Link, useDisclosure, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, Input } from "@chakra-ui/react";
-import { Heart } from 'lucide-react';
+import {
+  Box,
+  Grid,
+  Image,
+  Text,
+  Heading,
+  Button,
+  Link,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Input,
+} from "@chakra-ui/react";
+import { Heart } from "lucide-react";
 import NavBar from "../components/Navbar";
 
 const Dashboard = () => {
@@ -22,15 +39,14 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, []); // Consider adding a dependency if you want to refetch posts
+  }, []);
 
   const handleOpenComments = (post) => {
     setSelectedPost(post);
-    onOpen(); // Opens the Drawer
+    onOpen();
   };
-  
+
   const toggleLike = (post) => {
-    // Assuming you have some API or logic to update likes in the backend
     const updatedPosts = posts.map((p) => {
       if (p._id === post._id) {
         return {
@@ -41,10 +57,10 @@ const Dashboard = () => {
       }
       return p;
     });
-  
+
     setPosts(updatedPosts);
   };
-  
+
   return (
     <div>
       <NavBar />
@@ -78,17 +94,24 @@ const Dashboard = () => {
                 <Text mt="2" fontWeight="bold">
                   Location: {post.location}
                 </Text>
-                <Box mt="2" display="flex" alignItems="center" justifyContent="space-between">
-                <Box display="flex" alignItems="center">
+                <Box
+                  mt="2"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Box display="flex" alignItems="center">
                     <Heart
                       onClick={() => toggleLike(post)}
                       style={{
-                        cursor: 'pointer',
-                        fill: post.liked ? 'red' : 'none',
-                        stroke: 'black'
+                        cursor: "pointer",
+                        fill: post.liked ? "red" : "none",
+                        stroke: "black",
                       }}
                     />
-                    <Text color="gray.500" ml={2}>{post.likes} Likes</Text>
+                    <Text color="gray.500" ml={2}>
+                      {post.likes} Likes
+                    </Text>
                   </Box>
                   <Link
                     color="teal.500"
@@ -123,7 +146,7 @@ const Dashboard = () => {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
-      )}    
+      )}
     </div>
   );
 };
