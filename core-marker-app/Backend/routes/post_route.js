@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", getAllPosts);
 
 // creates a post
-router.post("/", createPost);
+router.post("/:userId", createPost);
 
 // updates a post
 router.put("/:id", updatePost);

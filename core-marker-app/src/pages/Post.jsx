@@ -10,6 +10,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import NavBar from "../components/Navbar";
+const token = localStorage.getItem("token");
 
 const Post = () => {
   const [form, setForm] = useState({
@@ -32,14 +33,26 @@ const Post = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const response = await fetch("http://localhost:5001/api/user/me", {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+    const userResponse = await response.json();
+    const userId = userResponse.user._id;
+    console.log("User ID:", userId);
+
     try {
-      const response = await fetch("http://localhost:5001/api/upload", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `http://localhost:5001/api/upload/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
         },
-        body: JSON.stringify(form),
-      });
+      );
 
       const data = await response.json();
 
