@@ -13,7 +13,7 @@ export const getAllPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const { title, description, location, imageUrl } = req.body;
-
+  const { userId } = req.params;
   if (!title || !description || !location || !imageUrl) {
     return res
       .status(400)
@@ -25,11 +25,13 @@ export const createPost = async (req, res) => {
     description,
     location,
     imageUrl,
+    userId,
   });
 
   try {
     const savedPost = await newPost.save();
     res.status(201).json({ success: true, data: savedPost });
+    console.log("post is successfully created");
   } catch (error) {
     console.error("Error in creating Post:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
