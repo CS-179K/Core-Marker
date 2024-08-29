@@ -39,7 +39,9 @@ const Profile = () => {
               },
             },
           );
-
+          console.log(
+            `Fetching posts with URL: http://localhost:5001/api/user/${userId}`,
+          );
           if (!postsResponse.ok) {
             throw new Error(
               `Posts API call failed with status ${postsResponse.status}`,
@@ -71,32 +73,36 @@ const Profile = () => {
   if (error) return <Text color="red.500">{error}</Text>;
 
   return (
-    <Box p={5} maxW="800px" mx="auto">
+    <div>
       <NavBar />
-      <Heading mb={6}>My Posts</Heading>
-      <VStack spacing={4}>
-        {posts.map((post) => (
-          <Box
-            key={post._id}
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-          >
-            <Heading fontSize="xl">{post.title}</Heading>
-            <Text mt={2}>{post.description}</Text>
-            <Text mt={2} color="gray.600">
-              Location: {post.location}
-            </Text>
-            <Text mt={2} color="gray.600">
-              Likes: {post.likes}
-            </Text>
-            {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
-          </Box>
-        ))}
-        {posts.length === 0 && <Text>No posts available.</Text>}
-      </VStack>
-    </Box>
+      <Box p={5} maxW="800px" mx="auto">
+        <Heading mb={6}>
+          <center>My Posts</center>
+        </Heading>
+        <VStack spacing={4}>
+          {posts.map((post) => (
+            <Box
+              key={post._id}
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+            >
+              <Heading fontSize="xl">{post.title}</Heading>
+              <Text mt={2}>{post.description}</Text>
+              <Text mt={2} color="gray.600">
+                Location: {post.location}
+              </Text>
+              <Text mt={2} color="gray.600">
+                Likes: {post.likes}
+              </Text>
+              {post.imageUrl && <img src={post.imageUrl} alt={post.title} />}
+            </Box>
+          ))}
+          {posts.length === 0 && <Text>No posts available</Text>}
+        </VStack>
+      </Box>
+    </div>
   );
 };
 
