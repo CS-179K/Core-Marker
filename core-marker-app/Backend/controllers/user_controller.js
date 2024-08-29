@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
-import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -34,12 +33,12 @@ export const getUser = async (req, res) => {
 
 export const getUserPosts = async (req, res) => {
   const { userId } = req.params;
-  console.log("User ID:", userId);
 
   try {
     const posts = await Post.find({ userId: userId });
+    console.log("User ID:", userId);
     res.json({ success: true, data: posts });
-    console.log("Posts called from database successfully");
+    console.log("Posts called from database successfully!");
   } catch (error) {
     console.error("Error fetching user posts:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
