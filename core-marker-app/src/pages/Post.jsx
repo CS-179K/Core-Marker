@@ -13,6 +13,7 @@ import NavBar from "../components/Navbar";
 const token = localStorage.getItem("token");
 
 const Post = () => {
+  const [postImage, setPostImage] = useState({myFile : ""});
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -96,6 +97,12 @@ const Post = () => {
     });
   };
 
+  const handleFileUpload = aysnc (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    console.log(base64);
+  };
+
   return (
     <div>
       <NavBar />
@@ -143,14 +150,16 @@ const Post = () => {
             />
           </FormControl>
           <FormControl mb={4} isRequired>
-            <FormLabel htmlFor="imageUrl">Image URL</FormLabel>
+            <FormLabel htmlFor="imageUrl">Upload</FormLabel>
             <Input
               id="imageUrl"
               name="imageUrl"
-              type="text"
+              type="file"
+              label="image"
+              accept="image/png, image/jpeg, image/jpg"
               value={form.imageUrl}
-              onChange={handleChange}
-              placeholder="Enter the image URL"
+              onChange={(e) => handleFileUpload(e)}
+              placeholder="Upload Here"
             />
           </FormControl>
           <Button type="submit" colorScheme="teal" width="full">
@@ -163,3 +172,17 @@ const Post = () => {
 };
 
 export default Post;
+
+
+function convertToBase64(file){
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve.(fileReader.result)
+    };
+    fileReader.onerror = (error) => {
+      reject(error)
+    }
+  })
+};
