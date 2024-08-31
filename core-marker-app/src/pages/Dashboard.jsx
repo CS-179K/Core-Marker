@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [likedPosts, setLikedPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState(new Set());
 
   // Move currentUser inside the component
   const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -33,9 +33,10 @@ const Dashboard = () => {
         if (data.success) {
           const fetchedPosts = data.data.map((post) => ({
             ...post,
-            liked: currentUser && post.likedBy.includes(currentUser._id),
+            liked: currentUser ? post.likedBy.includes(currentUser._id) : false,
           }));
           setPosts(fetchedPosts);
+          setLikedPosts(new Set(fetchedPosts.filter((post) => post.liked).map((post) => post._id)));
           console.log("Posts fetched successfully!");
         }
       } catch (error) {
@@ -44,7 +45,8 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, [currentUser]); // Ensure that currentUser is part of the dependency array
+  }, [currentUser]);
+
 
   const handleOpenComments = (post) => {
     setSelectedPost(post);
@@ -52,9 +54,10 @@ const Dashboard = () => {
   };
 
   const toggleLike = async (post) => {
-    try {
-      const alreadyLiked = likedPosts.includes(post._id);
+    const alreadyLiked = likedPosts.has(post._id);
 
+    try {
+      // Optimistically update the UI
       const updatedPosts = posts.map((p) => {
         if (p._id === post._id) {
           return {
@@ -69,18 +72,30 @@ const Dashboard = () => {
       setPosts(updatedPosts);
 
       if (alreadyLiked) {
-        setLikedPosts(likedPosts.filter((id) => id !== post._id));
+        setLikedPosts((prevLikedPosts) => {
+          const newLikedPosts = new Set(prevLikedPosts);
+          newLikedPosts.delete(post._id);
+          return newLikedPosts;
+        });
       } else {
-        setLikedPosts([...likedPosts, post._id]);
+        setLikedPosts((prevLikedPosts) => {
+          const newLikedPosts = new Set(prevLikedPosts);
+          newLikedPosts.add(post._id);
+          return newLikedPosts;
+        });
       }
 
-      console.log(`Toggling like for post ID: ${post._id}`);
       const response = await fetch(
           `http://localhost:5001/api/upload/${post._id}/likes`,
           {
             method: "PUT",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ liked: !alreadyLiked })
           }
       );
+
       if (!response.ok) {
         throw new Error("Failed to update likes in the database");
       }
@@ -110,6 +125,7 @@ const Dashboard = () => {
                     post={post}
                     toggleLike={toggleLike}
                     handleOpenComments={handleOpenComments}
+                    likedPosts={likedPosts}
                 />
             ))}
           </Grid>
