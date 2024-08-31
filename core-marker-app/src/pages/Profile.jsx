@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, Heading, Text, Spinner, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Spinner,
+  VStack,
+  Container,
+} from "@chakra-ui/react";
 import NavBar from "../components/Navbar";
 
 const Profile = () => {
@@ -75,7 +82,8 @@ const Profile = () => {
   return (
     <div>
       <NavBar />
-      <Box p={5} maxW="800px" mx="auto">
+      <Container></Container>
+      <Box p={5} maxW="500px" mx="auto">
         <Heading mb={6}>
           <center>My Posts</center>
         </Heading>
