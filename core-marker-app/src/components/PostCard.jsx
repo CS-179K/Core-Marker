@@ -43,7 +43,7 @@ const PostCard = ({ post, toggleLike, handleOpenComments }) => {
               style={{
                 cursor: "pointer",
                 fill: post.liked ? "red" : "none",
-                stroke: "black",
+                stroke: post.liked ? "red" : "black"
               }}
             />
             <Text color="gray.500" ml={2}>
