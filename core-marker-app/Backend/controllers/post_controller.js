@@ -76,7 +76,7 @@ export const getPostsByUser = async (req, res) => {
 
 export const updatePostLikes = async (req, res) => {
   try {
-    const postId = req.params.id;
+    const { postId } = req.params;
     const post = await Post.findById(postId);
     console.log(`Received request to like post ID: ${req.params.id}`);
 
