@@ -76,23 +76,42 @@ export const getPostsByUser = async (req, res) => {
 
 export const updatePostLikes = async (req, res) => {
   try {
-    const postId = req.params.id;
-    const post = await Post.findById(postId);
-    console.log(`Received request to like post ID: ${req.params.id}`);
+    const { postId } = req.params;
+    const { liked, userId } = req.body; // Expecting `liked` status and `userId` in the request body
 
-    if (!post) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Post not found" });
+    // Validate input
+    if (typeof liked !== 'boolean' || !userId) {
+      return res.status(400).json({ success: false, message: "Invalid request data" });
     }
 
-    post.likes += 1;
+    // Find the post
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ success: false, message: "Post not found" });
+    }
+
+
+    if (liked) {
+      if (!post.likedBy.includes(userId)) {
+        post.likes += 1;
+        post.likedBy.push(userId);
+      }
+    } else {
+      if (post.likedBy.includes(userId)) {
+        post.likes -= 1;
+        post.likedBy = post.likedBy.filter(id => id.toString() !== userId.toString());
+      }
+    }
+
+
     await post.save();
 
     res.status(200).json({ success: true, data: post });
     console.log("Post saved with updated likes!");
   } catch (error) {
-    console.error("Error liking post:", error.message);
+    console.error("Error updating post likes:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+

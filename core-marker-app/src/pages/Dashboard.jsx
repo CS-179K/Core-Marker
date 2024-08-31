@@ -20,6 +20,10 @@ const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [likedPosts, setLikedPosts] = useState(new Set());
+
+  // Move currentUser inside the component
+  const currentUser = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -27,7 +31,12 @@ const Dashboard = () => {
         const response = await fetch("http://localhost:5001/api/upload");
         const data = await response.json();
         if (data.success) {
-          setPosts(data.data);
+          const fetchedPosts = data.data.map((post) => ({
+            ...post,
+            liked: currentUser ? post.likedBy.includes(currentUser._id) : false,
+          }));
+          setPosts(fetchedPosts);
+          setLikedPosts(new Set(fetchedPosts.filter((post) => post.liked).map((post) => post._id)));
           console.log("Posts fetched successfully!");
         }
       } catch (error) {
@@ -36,7 +45,8 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [currentUser]);
+
 
   const handleOpenComments = (post) => {
     setSelectedPost(post);
@@ -44,27 +54,48 @@ const Dashboard = () => {
   };
 
   const toggleLike = async (post) => {
+    const alreadyLiked = likedPosts.has(post._id);
+
     try {
+      // Optimistically update the UI
       const updatedPosts = posts.map((p) => {
         if (p._id === post._id) {
           return {
             ...p,
-            liked: !p.liked,
-            likes: p.liked ? p.likes - 1 : p.likes + 1,
+            liked: !alreadyLiked,
+            likes: alreadyLiked ? p.likes - 1 : p.likes + 1,
           };
         }
         return p;
       });
 
       setPosts(updatedPosts);
-      console.log(`Toggling like for post ID: ${post._id}`);
+
+      if (alreadyLiked) {
+        setLikedPosts((prevLikedPosts) => {
+          const newLikedPosts = new Set(prevLikedPosts);
+          newLikedPosts.delete(post._id);
+          return newLikedPosts;
+        });
+      } else {
+        setLikedPosts((prevLikedPosts) => {
+          const newLikedPosts = new Set(prevLikedPosts);
+          newLikedPosts.add(post._id);
+          return newLikedPosts;
+        });
+      }
+
       const response = await fetch(
-        `http://localhost:5001/api/upload/${post._id}/likes`,
-        {
-          method: "PUT",
-        },
+          `http://localhost:5001/api/upload/${post._id}/likes`,
+          {
+            method: "PUT",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ liked: !alreadyLiked })
+          }
       );
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("Failed to update likes in the database");
       }
@@ -76,7 +107,7 @@ const Dashboard = () => {
 
       const updatedPost = data.data;
       setPosts((prevPosts) =>
-        prevPosts.map((p) => (p._id === updatedPost._id ? updatedPost : p)),
+          prevPosts.map((p) => (p._id === updatedPost._id ? updatedPost : p))
       );
     } catch (error) {
       console.error("Error liking post:", error.message);
@@ -84,40 +115,41 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <NavBar />
-      <Box p={5}>
-        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={6}>
-          {posts.map((post) => (
-            <PostCard
-              key={post._id}
-              post={post}
-              toggleLike={toggleLike}
-              handleOpenComments={handleOpenComments}
-            />
-          ))}
-        </Grid>
-      </Box>
+      <div>
+        <NavBar />
+        <Box p={5}>
+          <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={6}>
+            {posts.map((post) => (
+                <PostCard
+                    key={post._id}
+                    post={post}
+                    toggleLike={toggleLike}
+                    handleOpenComments={handleOpenComments}
+                    likedPosts={likedPosts}
+                />
+            ))}
+          </Grid>
+        </Box>
 
-      {selectedPost && (
-        <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Comments for {selectedPost.title}</DrawerHeader>
-            <DrawerBody>
-              <Input placeholder="Type your comment here..." />
-            </DrawerBody>
-            <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button colorScheme="blue">Post Comment</Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      )}
-    </div>
+        {selectedPost && (
+            <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerCloseButton />
+                <DrawerHeader>Comments for {selectedPost.title}</DrawerHeader>
+                <DrawerBody>
+                  <Input placeholder="Type your comment here..." />
+                </DrawerBody>
+                <DrawerFooter>
+                  <Button variant="outline" mr={3} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button colorScheme="blue">Post Comment</Button>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+        )}
+      </div>
   );
 };
 
