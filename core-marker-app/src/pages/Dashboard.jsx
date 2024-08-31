@@ -57,7 +57,7 @@ const Dashboard = () => {
       });
 
       setPosts(updatedPosts);
-
+      console.log(`Toggling like for post ID: ${post._id}`);
       const response = await fetch(
         `http://localhost:5001/api/upload/${post._id}/likes`,
         {
