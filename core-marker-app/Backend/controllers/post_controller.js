@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({});
+    const posts = await Post.find().populate("userId", "name");
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     console.log("error in fetching posts", error.message);
@@ -71,5 +71,28 @@ export const getPostsByUser = async (req, res) => {
     res.json({ success: true, data: posts });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+export const updatePostLikes = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+    console.log(`Received request to like post ID: ${req.params.id}`);
+
+    if (!post) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
+    }
+
+    post.likes += 1;
+    await post.save();
+
+    res.status(200).json({ success: true, data: post });
+    console.log("Post saved with updated likes!");
+  } catch (error) {
+    console.error("Error liking post:", error.message);
+    res.status(500).json({ success: false, message: "Server Error" });
   }
 };
