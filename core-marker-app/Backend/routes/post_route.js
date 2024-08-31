@@ -3,6 +3,7 @@ import {
   getAllPosts,
   createPost,
   updatePost,
+  updatePostLikes,
   deletePost,
   getPostsByUser,
 } from "../controllers/post_controller.js";
@@ -17,6 +18,9 @@ router.post("/:userId", createPost);
 
 // updates a post
 router.put("/:id", updatePost);
+
+//updates like of a post
+router.put("/:id/likes", updatePostLikes);
 
 // deletes a post by id
 router.delete("/:id", deletePost);
