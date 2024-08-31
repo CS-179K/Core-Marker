@@ -20,7 +20,7 @@ router.post("/:userId", createPost);
 router.put("/:id", updatePost);
 
 //updates like of a post
-router.put("/:id/likes", updatePostLikes);
+router.put("/:postId/likes", updatePostLikes);
 
 // deletes a post by id
 router.delete("/:id", deletePost);
