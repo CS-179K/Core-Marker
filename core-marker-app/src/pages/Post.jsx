@@ -34,12 +34,45 @@ const Post = () => {
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
+
     if (file) {
-      const base64 = await convertToBase64(file);
-      setForm({
-        ...form,
-        imageUrl: base64, // Update imageUrl with base64 encoded string
-      });
+      // Check file size before compression (optional)
+      if (file.size > 10 * 1024 * 1024) {  // If file is larger than 10 MB
+        toast({
+          title: "File too large.",
+          description: "Please select a file smaller than 10 MB.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+        return;
+      }
+
+      try {
+
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+
+        // Compress the image file
+        const compressedFile = await imageCompression(file, options);
+
+        // Convert compressed file to base64
+        const base64 = await convertToBase64(compressedFile);
+
+
+        setForm({
+          ...form,
+          imageUrl: base64,
+        });
+
+        console.log('Original file size:', file.size / 1024 / 1024, 'MB');
+        console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
+      } catch (error) {
+        console.error("Error during image compression:", error);
+      }
     }
   };
 
@@ -105,14 +138,10 @@ const Post = () => {
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
     });
   };
 
@@ -148,7 +177,7 @@ const Post = () => {
                   value={form.description}
                   onChange={handleChange}
                   placeholder="Enter the description"
-                  maxLength={200}
+                  maxLength={500}
               />
             </FormControl>
             <FormControl mb={4} isRequired>
@@ -163,7 +192,7 @@ const Post = () => {
               />
             </FormControl>
             <FormControl mb={4} isRequired>
-              <FormLabel htmlFor="imageUrl">Upload</FormLabel>
+              <FormLabel>Upload</FormLabel>
               <Input
                   id="imageUrl"
                   name="imageUrl"
