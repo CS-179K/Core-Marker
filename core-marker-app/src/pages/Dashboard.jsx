@@ -45,8 +45,7 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, [currentUser]);
-
+  }, [currentUser?._id]); // Dependency array includes currentUser._id to avoid unnecessary re-fetching
 
   const handleOpenComments = (post) => {
     setSelectedPost(post);
@@ -132,7 +131,7 @@ const Dashboard = () => {
         </Box>
 
         {selectedPost && (
-            <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+            <Drawer isOpen={isOpen} placement="bottom" onClose={() => { setSelectedPost(null); onClose(); }}>
               <DrawerOverlay />
               <DrawerContent>
                 <DrawerCloseButton />
@@ -141,7 +140,7 @@ const Dashboard = () => {
                   <Input placeholder="Type your comment here..." />
                 </DrawerBody>
                 <DrawerFooter>
-                  <Button variant="outline" mr={3} onClick={onClose}>
+                  <Button variant="outline" mr={3} onClick={() => { setSelectedPost(null); onClose(); }}>
                     Close
                   </Button>
                   <Button colorScheme="blue">Post Comment</Button>
