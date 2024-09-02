@@ -18,12 +18,13 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // Make sure to include credentials for session management
+        credentials: "include",
       });
 
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('user', JSON.stringify(data.user));
         navigate("/home"); // Redirect to home on successful login
       } else {
         alert(data.message); // Display error message

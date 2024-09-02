@@ -45,7 +45,7 @@ export const getUserPosts = async (req, res) => {
 export const updateAvatar = async (req, res) => {
   const token = req.headers["x-access-token"];
   const { avatar } = req.body; // Expecting base64 string
-  console.log("Received request to update avatar:", req.body);
+
   if (!token) {
     return res.status(401).json({ status: "error", message: "No token provided" });
   }
@@ -72,7 +72,7 @@ export const updateAvatar = async (req, res) => {
 export const updateBanner = async (req, res) => {
   const token = req.headers["x-access-token"];
   const { banner } = req.body; // Expecting base64 string
-  console.log("Received request to update banner:", req.body);
+
   if (!token) {
     return res.status(401).json({ status: "error", message: "No token provided" });
   }
