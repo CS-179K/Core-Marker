@@ -159,7 +159,7 @@ const FeedbackForm = () => {
               />
             </FormControl>
 
-            <Button type="submit" colorScheme="blue" size="lg" width="full">
+            <Button type="submit" colorScheme="teal" size="lg" width="full">
               Submit Feedback
             </Button>
           </VStack>

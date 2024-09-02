@@ -63,99 +63,94 @@ function NavBar() {
   };
 
   return (
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-        <Flex h={16} alignItems="center" justifyContent="space-between">
-          <HStack spacing={8} alignItems="center">
-            <Box fontWeight="bold" fontSize="xl">
-              <Link as={RouterLink} to="/Dashboard" px={2} py={1} rounded="md">
-                Core Marker
-              </Link>
-            </Box>
-            <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
-              <Link
-                  as={RouterLink}
-                  to="/post"
-                  px={2}
-                  py={1}
-                  rounded="md"
-                  _hover={{
-                    textDecoration: "none",
-                    bg: useColorModeValue("teal.300", "gray.700"),
-                  }}
-              >
-                Post
-              </Link>
-              <Link
-                  as={RouterLink}
-                  to="/support"
-                  px={2}
-                  py={1}
-                  rounded="md"
-                  _hover={{
-                    textDecoration: "none",
-                    bg: useColorModeValue("teal.300", "gray.700"),
-                  }}
-              >
-                Support
-              </Link>
-              <Link
-                  as={RouterLink}
-                  to="/profile"
-                  px={2}
-                  py={1}
-                  rounded="md"
-                  _hover={{
-                    textDecoration: "none",
-                    bg: useColorModeValue("teal.300", "gray.700"),
-                  }}
-              >
-                {userName || "My Profile"}
-              </Link>
-            </HStack>
+    <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Flex h={16} alignItems="center" justifyContent="space-between">
+        <HStack spacing={8} alignItems="center">
+          <Box fontWeight="bold" fontSize="xl">
+            <Link as={RouterLink} to="/Dashboard" px={2} py={1} rounded="md">
+              Core Marker
+            </Link>
+          </Box>
+          <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
+            <Link
+              as={RouterLink}
+              to="/post"
+              px={2}
+              py={1}
+              rounded="md"
+              _hover={{
+                textDecoration: "none",
+                bg: useColorModeValue("teal.300", "gray.700"),
+              }}
+            >
+              Post
+            </Link>
+            <Link
+              as={RouterLink}
+              to="/support"
+              px={2}
+              py={1}
+              rounded="md"
+              _hover={{
+                textDecoration: "none",
+                bg: useColorModeValue("teal.300", "gray.700"),
+              }}
+            >
+              Support
+            </Link>
+            <Link
+              as={RouterLink}
+              to="/profile"
+              px={2}
+              py={1}
+              rounded="md"
+              _hover={{
+                textDecoration: "none",
+                bg: useColorModeValue("teal.300", "gray.700"),
+              }}
+            >
+              {userName || "My Profile"}
+            </Link>
           </HStack>
-          <Flex alignItems="center">
-            {isLoggedIn ? (
-                <>
-                  <Avatar
-                      size="md"
-                      src={avatar}
-                      mr={4}
-                      fallbackSrc="/22.png" // Ensure fallback image
-                  />
-                  <Button
-                      variant="solid"
-                      colorScheme="teal"
-                      size="sm"
-                      mr={4}
-                      onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                </>
-            ) : (
-                <>
-                  <Button
-                      variant="solid"
-                      colorScheme="teal"
-                      size="sm"
-                      mr={4}
-                      onClick={() => navigate("/login")}
-                  >
-                    Login
-                  </Button>
-                  <Button
-                      variant="outline"
-                      colorScheme="teal"
-                      size="sm"
-                      onClick={() => navigate("/register")}
-                  >
-                    Sign Up
-                  </Button>
-                </>
-            )}
-          </Flex>
+        </HStack>
+        <Flex alignItems="center">
+          {isLoggedIn ? (
+            <>
+              <Avatar size="md" src={avatar} mr={4} />
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                size="sm"
+                mr={4}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                size="sm"
+                mr={4}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+              <Button
+                variant="outline"
+                colorScheme="teal"
+                size="sm"
+                onClick={() => navigate("/register")}
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Flex>
-      </Box>
+      </Flex>
+    </Box>
   );
 }
 

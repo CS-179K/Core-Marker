@@ -1,5 +1,10 @@
 import express from "express";
-import { getUser, getUserPosts, updateBanner, updateAvatar } from "../controllers/user_controller.js";
+import {
+  getUser,
+  getUserPosts,
+  updateBanner,
+  updateAvatar,
+} from "../controllers/user_controller.js";
 
 const router = express.Router();
 

@@ -24,11 +24,9 @@ const Dashboard = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
-  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-
-
     const fetchPosts = async () => {
       try {
         const response = await fetch("http://localhost:5001/api/upload");
@@ -39,7 +37,11 @@ const Dashboard = () => {
             liked: currentUser ? post.likedBy.includes(currentUser._id) : false,
           }));
           setPosts(fetchedPosts);
-          setLikedPosts(new Set(fetchedPosts.filter((post) => post.liked).map((post) => post._id)));
+          setLikedPosts(
+            new Set(
+              fetchedPosts.filter((post) => post.liked).map((post) => post._id),
+            ),
+          );
           console.log("Posts fetched successfully!");
         }
       } catch (error) {
@@ -48,14 +50,16 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, [currentUser?._id]);
+  }, [currentUser]);
 
   const handleOpenComments = async (post) => {
     setSelectedPost(post);
     onOpen();
 
     try {
-      const response = await fetch(`http://localhost:5001/api/upload/${post._id}/comments`);
+      const response = await fetch(
+        `http://localhost:5001/api/upload/${post._id}/comments`,
+      );
       const data = await response.json();
       if (data.success) {
         setComments(data.data || []); // Handle the case where data.data is null
@@ -75,13 +79,16 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5001/api/upload/${selectedPost._id}/comments`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `http://localhost:5001/api/upload/${selectedPost._id}/comments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: newComment, user: currentUser._id }),
         },
-        body: JSON.stringify({ text: newComment, user: currentUser._id })
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to add comment");
@@ -129,14 +136,14 @@ const Dashboard = () => {
       }
 
       const response = await fetch(
-          `http://localhost:5001/api/upload/${post._id}/likes`,
-          {
-            method: "PUT",
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ liked: !alreadyLiked })
-          }
+        `http://localhost:5001/api/upload/${post._id}/likes`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ liked: !alreadyLiked }),
+        },
       );
 
       if (!response.ok) {
@@ -150,7 +157,7 @@ const Dashboard = () => {
 
       const updatedPost = data.data;
       setPosts((prevPosts) =>
-          prevPosts.map((p) => (p._id === updatedPost._id ? updatedPost : p))
+        prevPosts.map((p) => (p._id === updatedPost._id ? updatedPost : p)),
       );
     } catch (error) {
       console.error("Error liking post:", error.message);
@@ -158,58 +165,72 @@ const Dashboard = () => {
   };
 
   return (
-      <div>
-        <NavBar />
-        <Box p={5}>
-          <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={6}>
-            {posts.map((post) => (
-                <PostCard
-                    key={post._id}
-                    post={post}
-                    toggleLike={toggleLike}
-                    handleOpenComments={handleOpenComments}
-                    likedPosts={likedPosts}
-                />
-            ))}
-          </Grid>
-        </Box>
+    <div>
+      <NavBar />
+      <Box p={5}>
+        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={6}>
+          {posts.map((post) => (
+            <PostCard
+              key={post._id}
+              post={post}
+              toggleLike={toggleLike}
+              handleOpenComments={handleOpenComments}
+              likedPosts={likedPosts}
+            />
+          ))}
+        </Grid>
+      </Box>
 
-        {selectedPost && (
-            <Drawer isOpen={isOpen} placement="bottom" onClose={() => { setSelectedPost(null); onClose(); }}>
-              <DrawerOverlay />
-              <DrawerContent>
-                <DrawerCloseButton />
-                <DrawerHeader>Comments for {selectedPost.title}</DrawerHeader>
-                <DrawerBody>
-                  {comments.length > 0 ? (
-                      comments.map((comment) => (
-                          <Box key={comment._id} p={2} borderBottom="1px solid #e2e8f0">
-                            <strong>{comment.user.name}</strong>
-                            <p>{comment.text}</p>
-                          </Box>
-                      ))
-                  ) : (
-                      <p>No comments yet.</p>
-                  )}
-                  <Input
-                      placeholder="Type your comment here..."
-                      value={newComment}
-                      onChange={(e) => setNewComment(e.target.value)}
-                      mt={3}
-                  />
-                </DrawerBody>
-                <DrawerFooter>
-                  <Button variant="outline" mr={3} onClick={() => { setSelectedPost(null); onClose(); }}>
-                    Close
-                  </Button>
-                  <Button colorScheme="blue" onClick={handleAddComment}>
-                    Post Comment
-                  </Button>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-        )}
-      </div>
+      {selectedPost && (
+        <Drawer
+          isOpen={isOpen}
+          placement="bottom"
+          onClose={() => {
+            setSelectedPost(null);
+            onClose();
+          }}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Comments for {selectedPost.title}</DrawerHeader>
+            <DrawerBody>
+              {comments.length > 0 ? (
+                comments.map((comment) => (
+                  <Box key={comment._id} p={2} borderBottom="1px solid #e2e8f0">
+                    <strong>{comment.user.name}</strong>
+                    <p>{comment.text}</p>
+                  </Box>
+                ))
+              ) : (
+                <p>No comments yet.</p>
+              )}
+              <Input
+                placeholder="Type your comment here..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                mt={3}
+              />
+            </DrawerBody>
+            <DrawerFooter>
+              <Button
+                variant="outline"
+                mr={3}
+                onClick={() => {
+                  setSelectedPost(null);
+                  onClose();
+                }}
+              >
+                Close
+              </Button>
+              <Button colorScheme="blue" onClick={handleAddComment}>
+                Post Comment
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      )}
+    </div>
   );
 };
 

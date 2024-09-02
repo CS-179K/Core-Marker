@@ -9,36 +9,62 @@ import {
   Heading,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 
 function Login() {
   const history = useNavigate();
+  const toast = useToast(); // Initialize the toast hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function loginUser(event) {
     event.preventDefault();
     console.log("Submitting login form with:", { email, password });
-    const response = await fetch("http://localhost:5001/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
 
-    const data = await response.json();
-    console.log("Show login data:", data.user);
+    try {
+      const response = await fetch("http://localhost:5001/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    if (data.user) {
-      localStorage.setItem("token", data.user);
-      console.log("login successful");
-      window.location.href = "/dashboard";
-    } else {
-      console.log("please check your username and password");
+      const data = await response.json();
+      console.log("Show login data:", data.user);
+
+      if (data.status === "ok" && data.user) {
+        localStorage.setItem("token", data.user);
+        toast({
+          title: "Login Successful",
+          description: "You have successfully logged in.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        history("/dashboard");
+      } else {
+        toast({
+          title: "Login Failed",
+          description: "Please check your email and password.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      toast({
+        title: "Login Error",
+        description: "An error occurred while trying to log in.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
