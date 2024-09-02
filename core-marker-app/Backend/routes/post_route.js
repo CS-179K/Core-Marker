@@ -6,6 +6,8 @@ import {
   updatePostLikes,
   deletePost,
   getPostsByUser,
+    addComment,
+    getComments,
 } from "../controllers/post_controller.js";
 
 const router = express.Router();
@@ -27,5 +29,11 @@ router.delete("/:id", deletePost);
 
 // returns posts by user
 router.get("/user/:userId", getPostsByUser);
+
+//add a comment to post
+router.post("/:postId/comments", addComment);
+
+// get all comments for a post
+router.get("/:postId/comments", getComments);
 
 export default router;
