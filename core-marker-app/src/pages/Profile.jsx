@@ -41,7 +41,11 @@ const Profile = () => {
   const [avatar, setAvatar] = useState("");
   const [banner, setBanner] = useState("");
 
-  const { isOpen: isModalOpen, onOpen: openModal, onClose: closeModal } = useDisclosure();
+  const {
+    isOpen: isModalOpen,
+    onOpen: openModal,
+    onClose: closeModal,
+  } = useDisclosure();
   const toast = useToast();
   const token = localStorage.getItem("token");
 
@@ -55,7 +59,9 @@ const Profile = () => {
         });
 
         if (!response.ok) {
-          throw new Error(`User API call failed with status ${response.status}`);
+          throw new Error(
+            `User API call failed with status ${response.status}`,
+          );
         }
 
         const userResponse = await response.json();
@@ -65,14 +71,19 @@ const Profile = () => {
 
         const userId = userResponse.user._id;
 
-        const postsResponse = await fetch(`http://localhost:5001/api/user/${userId}`, {
-          headers: {
-            "x-access-token": token,
+        const postsResponse = await fetch(
+          `http://localhost:5001/api/user/${userId}`,
+          {
+            headers: {
+              "x-access-token": token,
+            },
           },
-        });
+        );
 
         if (!postsResponse.ok) {
-          throw new Error(`Posts API call failed with status ${postsResponse.status}`);
+          throw new Error(
+            `Posts API call failed with status ${postsResponse.status}`,
+          );
         }
 
         const postsData = await postsResponse.json();
@@ -144,14 +155,17 @@ const Profile = () => {
 
   const updateImageInDB = async (base64, type) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/user/update/${type}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token,
+      const response = await fetch(
+        `http://localhost:5001/api/user/update/${type}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+          body: JSON.stringify({ [type]: base64 }),
         },
-        body: JSON.stringify({ [type]: base64 }),
-      });
+      );
 
       const data = await response.json();
 
@@ -205,14 +219,17 @@ const Profile = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/upload/${editingPostId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token,
+      const response = await fetch(
+        `http://localhost:5001/api/upload/${editingPostId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+          body: JSON.stringify(form),
         },
-        body: JSON.stringify(form),
-      });
+      );
 
       const data = await response.json();
 
@@ -225,9 +242,9 @@ const Profile = () => {
           isClosable: true,
         });
         setPosts((prevPosts) =>
-            prevPosts.map((post) =>
-                post._id === editingPostId ? { ...post, ...form } : post
-            )
+          prevPosts.map((post) =>
+            post._id === editingPostId ? { ...post, ...form } : post,
+          ),
         );
         closeModal();
       } else {
@@ -253,12 +270,15 @@ const Profile = () => {
 
   const handleDelete = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:5001/api/upload/${postId}`, {
-        method: "DELETE",
-        headers: {
-          "x-access-token": token,
+      const response = await fetch(
+        `http://localhost:5001/api/upload/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "x-access-token": token,
+          },
         },
-      });
+      );
 
       const data = await response.json();
 
@@ -270,7 +290,9 @@ const Profile = () => {
           duration: 9000,
           isClosable: true,
         });
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId),
+        );
       } else {
         toast({
           title: "Error.",
@@ -293,119 +315,137 @@ const Profile = () => {
   };
 
   return (
-      <>
-        <NavBar />
-        <Box h="300px">
-          <Input
-              id="banner"
-              type="file"
-              accept="image/*"
-              onChange={handleFileUpload}
-              display="none"
-          />
-          <Image pb={10} src={banner} alt="Banner" boxSize="100%" objectFit="cover" cursor="pointer"  onClick={() => document.getElementById("banner").click()} />
-        </Box>
-        <Box display="flex" flexDirection="column" alignItems="center">
+    <>
+      <NavBar />
+      <Box h="300px">
+        <Input
+          id="banner"
+          type="file"
+          accept="image/*"
+          onChange={handleFileUpload}
+          display="none"
+        />
+        <Image
+          pb={10}
+          src={banner}
+          alt="Banner"
+          boxSize="100%"
+          objectFit="cover"
+          cursor="pointer"
+          onClick={() => document.getElementById("banner").click()}
+        />
+      </Box>
+      <Box display="flex" flexDirection="column" alignItems="center">
+        <Input
+          id="avatar"
+          type="file"
+          accept="image/*"
+          onChange={handleFileUpload}
+          display="none"
+        />
 
-          <Input
-              id="avatar"
-              type="file"
-              accept="image/*"
-              onChange={handleFileUpload}
-              display="none"
-          />
-
-          <Image
-              src={avatar}
-              alt="Avatar"
-              borderRadius="full"
-              boxSize="150px"
-              objectFit="cover"
-              cursor="pointer"
-              onClick={() => document.getElementById("avatar").click()}
-          />
-          <Heading as="h1" size="xl" mt={4}>
-            {user.name}
-          </Heading>
-          <Text fontSize="lg">{user.email}</Text>
-        </Box>
-        <Container maxW="container.lg" py={300}>
-          {loading ? (
-              <Spinner size="xl" mt={4} />
-          ) : error ? (
-              <Text color="red.500" mt={4}>
-                {error}
-              </Text>
-          ) : (
-              <VStack spacing={4} mt={8}>
-                {posts.map((post) => (
-                    <Box
-                        key={post._id}
-                        p={4}
-                        borderWidth={1}
-                        borderRadius="md"
-                        boxShadow="sm"
-                        width="100%"
-                    >
-                      <Image src={post.imageUrl} alt={post.title} boxSize="100%" objectFit="cover" borderRadius="md" />
-                      <Heading as="h2" size="md" mt={2}>
-                        {post.title}
-                      </Heading>
-                      <Text mt={2}>{post.description}</Text>
-                      <Flex mt={4} justify="flex-end" gap={2}>
-                        <Button colorScheme="teal" onClick={() => handleEditClick(post)}>Edit</Button>
-                        <Button colorScheme="red" onClick={() => handleDelete(post._id)}>Delete</Button>
-                      </Flex>
-                    </Box>
-                ))}
-              </VStack>
-          )}
-        </Container>
-
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Edit Post</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <FormControl id="title" mb={4}>
-                <FormLabel>Title</FormLabel>
-                <Input
-                    name="title"
-                    value={form.title}
-                    onChange={handleChange}
+        <Image
+          src={avatar}
+          alt="Avatar"
+          borderRadius="full"
+          boxSize="150px"
+          objectFit="cover"
+          cursor="pointer"
+          onClick={() => document.getElementById("avatar").click()}
+        />
+        <Heading as="h1" size="xl" mt={4}>
+          {user.name}
+        </Heading>
+        <Text fontSize="lg">{user.email}</Text>
+      </Box>
+      <Container maxW="container.lg" py={300}>
+        {loading ? (
+          <Spinner size="xl" mt={4} />
+        ) : error ? (
+          <Text color="red.500" mt={4}>
+            {error}
+          </Text>
+        ) : (
+          <VStack spacing={4} mt={8}>
+            {posts.map((post) => (
+              <Box
+                key={post._id}
+                p={4}
+                borderWidth={1}
+                borderRadius="md"
+                boxShadow="sm"
+                width="100%"
+              >
+                <Image
+                  src={post.imageUrl}
+                  alt={post.title}
+                  boxSize="100%"
+                  objectFit="cover"
+                  borderRadius="md"
                 />
-              </FormControl>
-              <FormControl id="description" mb={4}>
-                <FormLabel>Description</FormLabel>
-                <Textarea
-                    name="description"
-                    value={form.description}
-                    onChange={handleChange}
-                />
-              </FormControl>
-              <FormControl id="location" mb={4}>
-                <FormLabel>Location</FormLabel>
-                <Input
-                    name="location"
-                    value={form.location}
-                    onChange={handleChange}
-                />
-              </FormControl>
+                <Heading as="h2" size="md" mt={2}>
+                  {post.title}
+                </Heading>
+                <Text mt={2}>{post.description}</Text>
+                <Flex mt={4} justify="flex-end" gap={2}>
+                  <Button
+                    colorScheme="teal"
+                    onClick={() => handleEditClick(post)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => handleDelete(post._id)}
+                  >
+                    Delete
+                  </Button>
+                </Flex>
+              </Box>
+            ))}
+          </VStack>
+        )}
+      </Container>
 
-            </ModalBody>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Post</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl id="title" mb={4}>
+              <FormLabel>Title</FormLabel>
+              <Input name="title" value={form.title} onChange={handleChange} />
+            </FormControl>
+            <FormControl id="description" mb={4}>
+              <FormLabel>Description</FormLabel>
+              <Textarea
+                name="description"
+                value={form.description}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl id="location" mb={4}>
+              <FormLabel>Location</FormLabel>
+              <Input
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </ModalBody>
 
-            <ModalFooter>
-              <Button colorScheme="teal" mr={3} onClick={handleUpdate}>
-                Update
-              </Button>
-              <Button variant="outline" onClick={closeModal}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </>
+          <ModalFooter>
+            <Button colorScheme="teal" mr={3} onClick={handleUpdate}>
+              Update
+            </Button>
+            <Button variant="outline" onClick={closeModal}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 
