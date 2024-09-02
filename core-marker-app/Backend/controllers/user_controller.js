@@ -40,14 +40,16 @@ export const getUserPosts = async (req, res) => {
     console.error("Error fetching user posts:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
-}
+};
 
 export const updateAvatar = async (req, res) => {
   const token = req.headers["x-access-token"];
   const { avatar } = req.body; // Expecting base64 string
 
   if (!token) {
-    return res.status(401).json({ status: "error", message: "No token provided" });
+    return res
+      .status(401)
+      .json({ status: "error", message: "No token provided" });
   }
 
   try {
@@ -56,7 +58,9 @@ export const updateAvatar = async (req, res) => {
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ status: "error", message: "User not found" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
     }
 
     user.avatar = avatar; // Update the avatar field
@@ -74,7 +78,9 @@ export const updateBanner = async (req, res) => {
   const { banner } = req.body; // Expecting base64 string
 
   if (!token) {
-    return res.status(401).json({ status: "error", message: "No token provided" });
+    return res
+      .status(401)
+      .json({ status: "error", message: "No token provided" });
   }
 
   try {
@@ -83,7 +89,9 @@ export const updateBanner = async (req, res) => {
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ status: "error", message: "User not found" });
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
     }
 
     user.banner = banner; // Update the banner field
