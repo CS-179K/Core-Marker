@@ -19,10 +19,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "44.png",
     },
-      banner: {
-          type: String,
-          default: "22.png", // Default banner
-      },
+    banner: {
+      type: String,
+      default: "22.png", // Default banner
+    },
   },
   {
     timestamps: true,
