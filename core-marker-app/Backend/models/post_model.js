@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 
 const CommentSchema = new mongoose.Schema(
-    {
-        text: {
-            type: String,
-            required: true,
-        },
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-        },
+  {
+    text: {
+      type: String,
+      required: true,
     },
-    { timestamps: true }
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  { timestamps: true },
 );
 
 const PostSchema = new mongoose.Schema(
@@ -43,7 +43,7 @@ const PostSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-      comments: [CommentSchema],
+    comments: [CommentSchema],
   },
   {
     timestamps: true,
