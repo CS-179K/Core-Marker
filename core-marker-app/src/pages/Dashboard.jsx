@@ -21,11 +21,14 @@ const Dashboard = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [likedPosts, setLikedPosts] = useState(new Set());
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
-  // Move currentUser inside the component
   const currentUser = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
+
+
     const fetchPosts = async () => {
       try {
         const response = await fetch("http://localhost:5001/api/upload");
@@ -45,18 +48,59 @@ const Dashboard = () => {
     };
 
     fetchPosts();
-  }, [currentUser?._id]); // Dependency array includes currentUser._id to avoid unnecessary re-fetching
+  }, [currentUser?._id]);
 
-  const handleOpenComments = (post) => {
+  const handleOpenComments = async (post) => {
     setSelectedPost(post);
     onOpen();
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/upload/${post._id}/comments`);
+      const data = await response.json();
+      if (data.success) {
+        setComments(data.data || []); // Handle the case where data.data is null
+      }
+    } catch (error) {
+      console.error("Error fetching comments:", error.message);
+      setComments([]); // In case of error, show no comments
+    }
+  };
+
+  const handleAddComment = async () => {
+    if (!newComment.trim()) return;
+
+    if (!currentUser || !currentUser._id) {
+      console.error("User is not logged in or user ID is missing");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5001/api/upload/${selectedPost._id}/comments`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: newComment, user: currentUser._id })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add comment");
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setComments((prevComments) => [...prevComments, data.data]);
+        setNewComment(""); // Clear the input after adding the comment
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error.message);
+    }
   };
 
   const toggleLike = async (post) => {
     const alreadyLiked = likedPosts.has(post._id);
 
     try {
-      // Optimistically update the UI
       const updatedPosts = posts.map((p) => {
         if (p._id === post._id) {
           return {
@@ -137,13 +181,30 @@ const Dashboard = () => {
                 <DrawerCloseButton />
                 <DrawerHeader>Comments for {selectedPost.title}</DrawerHeader>
                 <DrawerBody>
-                  <Input placeholder="Type your comment here..." />
+                  {comments.length > 0 ? (
+                      comments.map((comment) => (
+                          <Box key={comment._id} p={2} borderBottom="1px solid #e2e8f0">
+                            <strong>{comment.user.name}</strong>
+                            <p>{comment.text}</p>
+                          </Box>
+                      ))
+                  ) : (
+                      <p>No comments yet.</p>
+                  )}
+                  <Input
+                      placeholder="Type your comment here..."
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      mt={3}
+                  />
                 </DrawerBody>
                 <DrawerFooter>
                   <Button variant="outline" mr={3} onClick={() => { setSelectedPost(null); onClose(); }}>
                     Close
                   </Button>
-                  <Button colorScheme="blue">Post Comment</Button>
+                  <Button colorScheme="blue" onClick={handleAddComment}>
+                    Post Comment
+                  </Button>
                 </DrawerFooter>
               </DrawerContent>
             </Drawer>
