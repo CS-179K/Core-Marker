@@ -71,7 +71,7 @@ This is a Web app called “Core Marker” where people can write about their pe
 ![alt text](BurndownChart-final.png)
 
 ## Final Report:
-![alt text](Final-Design-Report.pdf)
+- see final_report_demo.pdf
 
 ## Final Demo:
 https://drive.google.com/drive/folders/190LkZzle0qa2y-XioQ7WHoDqehelg93r?usp=sharing 
