@@ -9,10 +9,12 @@ import {
   Heading,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 
 function Register() {
   const history = useNavigate();
+  const toast = useToast(); // Initialize the toast hook
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,24 +22,51 @@ function Register() {
   async function registerUser(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:5001/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    });
+    try {
+      const response = await fetch("http://localhost:5001/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.status === "ok") {
-      history("/login");
-    } else {
-      console.log("Could not sign in user");
+      if (data.status === "ok") {
+        toast({
+          title: "Registration Successful",
+          description:
+            "You have successfully registered. Redirecting to login.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setTimeout(() => {
+          history("/login");
+        }, 2000); // Redirect after 2 seconds to allow toast to be visible
+      } else {
+        toast({
+          title: "Registration Failed",
+          description: "Could not register user. Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      toast({
+        title: "Registration Error",
+        description: "An error occurred during registration.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
@@ -72,7 +101,7 @@ function Register() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  width="100%" // Set width to 100%
+                  width="100%"
                 />
               </FormControl>
 
@@ -83,7 +112,7 @@ function Register() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  width="100%" // Set width to 100%
+                  width="100%"
                 />
               </FormControl>
 
@@ -94,7 +123,7 @@ function Register() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  width="100%" // Set width to 100%
+                  width="100%"
                 />
               </FormControl>
 
