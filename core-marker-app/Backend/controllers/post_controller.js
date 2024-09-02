@@ -80,16 +80,19 @@ export const updatePostLikes = async (req, res) => {
     const { liked, userId } = req.body; // Expecting `liked` status and `userId` in the request body
 
     // Validate input
-    if (typeof liked !== 'boolean' || !userId) {
-      return res.status(400).json({ success: false, message: "Invalid request data" });
+    if (typeof liked !== "boolean" || !userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid request data" });
     }
 
     // Find the post
     const post = await Post.findById(postId);
     if (!post) {
-      return res.status(404).json({ success: false, message: "Post not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
     }
-
 
     if (liked) {
       if (!post.likedBy.includes(userId)) {
@@ -99,10 +102,11 @@ export const updatePostLikes = async (req, res) => {
     } else {
       if (post.likedBy.includes(userId)) {
         post.likes -= 1;
-        post.likedBy = post.likedBy.filter(id => id.toString() !== userId.toString());
+        post.likedBy = post.likedBy.filter(
+          (id) => id.toString() !== userId.toString(),
+        );
       }
     }
-
 
     await post.save();
 
@@ -120,12 +124,16 @@ export const addComment = async (req, res) => {
     const { text, userId } = req.body;
 
     if (!text || !userId) {
-      return res.status(400).json({ success: false, message: "Text and userId are required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Text and userId are required" });
     }
 
     const post = await Post.findById(postId);
     if (!post) {
-      return res.status(404).json({ success: false, message: "Post not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
     }
 
     const comment = { text, user: userId };
@@ -145,7 +153,9 @@ export const getComments = async (req, res) => {
 
     const post = await Post.findById(postId).populate("comments.user", "name");
     if (!post) {
-      return res.status(404).json({ success: false, message: "Post not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
     }
 
     res.status(200).json({ success: true, data: post.comments });
