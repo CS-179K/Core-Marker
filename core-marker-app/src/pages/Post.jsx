@@ -37,7 +37,8 @@ const Post = () => {
 
     if (file) {
       // Check file size before compression (optional)
-      if (file.size > 10 * 1024 * 1024) {  // If file is larger than 10 MB
+      if (file.size > 10 * 1024 * 1024) {
+        // If file is larger than 10 MB
         toast({
           title: "File too large.",
           description: "Please select a file smaller than 10 MB.",
@@ -49,7 +50,6 @@ const Post = () => {
       }
 
       try {
-
         const options = {
           maxSizeMB: 1,
           maxWidthOrHeight: 1920,
@@ -62,14 +62,17 @@ const Post = () => {
         // Convert compressed file to base64
         const base64 = await convertToBase64(compressedFile);
 
-
         setForm({
           ...form,
           imageUrl: base64,
         });
 
-        console.log('Original file size:', file.size / 1024 / 1024, 'MB');
-        console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
+        console.log("Original file size:", file.size / 1024 / 1024, "MB");
+        console.log(
+          "Compressed file size:",
+          compressedFile.size / 1024 / 1024,
+          "MB",
+        );
       } catch (error) {
         console.error("Error during image compression:", error);
       }
@@ -90,14 +93,14 @@ const Post = () => {
 
     try {
       const response = await fetch(
-          `http://localhost:5001/api/upload/${userId}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
+        `http://localhost:5001/api/upload/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify(form),
+        },
       );
 
       const data = await response.json();
@@ -146,67 +149,67 @@ const Post = () => {
   };
 
   return (
-      <div>
-        <NavBar />
-        <Box p={5} maxW="600px" mx="auto">
-          <Heading mb={6}>Create a New Post</Heading>
-          <Box
-              as="form"
-              onSubmit={handleSubmit}
-              bg="white"
-              p={6}
-              borderRadius="md"
-              boxShadow="md"
-          >
-            <FormControl mb={4} isRequired>
-              <FormLabel htmlFor="title">Title</FormLabel>
-              <Input
-                  id="title"
-                  name="title"
-                  type="text"
-                  value={form.title}
-                  onChange={handleChange}
-                  placeholder="Enter the title"
-              />
-            </FormControl>
-            <FormControl mb={4} isRequired>
-              <FormLabel htmlFor="description">Description</FormLabel>
-              <Textarea
-                  id="description"
-                  name="description"
-                  value={form.description}
-                  onChange={handleChange}
-                  placeholder="Enter the description"
-                  maxLength={500}
-              />
-            </FormControl>
-            <FormControl mb={4} isRequired>
-              <FormLabel htmlFor="location">Location</FormLabel>
-              <Input
-                  id="location"
-                  name="location"
-                  type="text"
-                  value={form.location}
-                  onChange={handleChange}
-                  placeholder="Enter the location"
-              />
-            </FormControl>
-            <FormControl mb={4} isRequired>
-              <FormLabel>Upload</FormLabel>
-              <Input
-                  id="imageUrl"
-                  name="imageUrl"
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg"
-                  onChange={handleFileUpload}
-              />
-            </FormControl>
-            <Button type="submit" colorScheme="teal" width="full">
-              Submit
-            </Button>
-          </Box>
+    <div>
+      <NavBar />
+      <Box p={5} maxW="600px" mx="auto">
+        <Heading mb={6}>Create a New Post</Heading>
+        <Box
+          as="form"
+          onSubmit={handleSubmit}
+          bg="white"
+          p={6}
+          borderRadius="md"
+          boxShadow="md"
+        >
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="title">Title</FormLabel>
+            <Input
+              id="title"
+              name="title"
+              type="text"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="Enter the title"
+            />
+          </FormControl>
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="description">Description</FormLabel>
+            <Textarea
+              id="description"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Enter the description"
+              maxLength={500}
+            />
+          </FormControl>
+          <FormControl mb={4} isRequired>
+            <FormLabel htmlFor="location">Location</FormLabel>
+            <Input
+              id="location"
+              name="location"
+              type="text"
+              value={form.location}
+              onChange={handleChange}
+              placeholder="Enter the location"
+            />
+          </FormControl>
+          <FormControl mb={4} isRequired>
+            <FormLabel>Upload</FormLabel>
+            <Input
+              id="imageUrl"
+              name="imageUrl"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleFileUpload}
+            />
+          </FormControl>
+          <Button type="submit" colorScheme="teal" width="full">
+            Submit
+          </Button>
         </Box>
-      </div>
+      </Box>
+    </div>
   );
 };
 
