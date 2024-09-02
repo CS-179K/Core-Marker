@@ -6,6 +6,7 @@ import {
   Button,
   useColorModeValue,
   Avatar,
+  useToast,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -15,6 +16,7 @@ function NavBar() {
   const [userName, setUserName] = useState(""); // State to hold the username
   const [avatar, setAvatar] = useState(""); // State to hold the avatar URL or base64
   const navigate = useNavigate();
+  const toast = useToast(); // Initialize the toast hook
 
   useEffect(() => {
     // Check if the user is logged in by looking for a token in localStorage
@@ -51,6 +53,13 @@ function NavBar() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     navigate("/login");
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   return (
