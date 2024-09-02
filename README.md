@@ -10,9 +10,11 @@ This is a Web app called “Core Marker” where people can write about their pe
 - Luke Nguyen: https://github.com/lukenguyen353
 
 ## Techniques Required: 
-- Languages: HTML, CSS, Javascript, React
-- Framework: Nodejs, Expressjs
-- Database: MongoDB, Firebase
+- Languages: HTML, CSS, Javascript
+- Libraries: Chakra UI, ReactEmail, TailwindCSS
+- APIs: Nodejs, Expressjs
+- Frameworks: Vite
+- Database: MongoDB
 
 ## Non-Functional Requirements: 
   Security: 
