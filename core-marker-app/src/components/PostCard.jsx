@@ -2,15 +2,7 @@ import PropTypes from "prop-types";
 import { Box, Image, Text, Heading, Link } from "@chakra-ui/react";
 import { Heart } from "lucide-react";
 
-
-
-
-const PostCard = ({ post, toggleLike, handleOpenComments }) => {
-  PostCard.defaultProps = {
-    post: {
-      liked: false,
-    },
-  };
+const PostCard = ({ post = { liked: false }, toggleLike, handleOpenComments }) => {
   const isLiked = post.liked !== null ? post.liked : false;
 
   return (
@@ -83,11 +75,11 @@ PostCard.propTypes = {
     description: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
-    liked: PropTypes.bool.isRequired,
+    liked: PropTypes.bool,
     userId: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
-  }).isRequired,
+  }),
   toggleLike: PropTypes.func.isRequired,
   handleOpenComments: PropTypes.func.isRequired,
 };
