@@ -1,29 +1,23 @@
-import mongoSanitize from "express-mongo-sanitize";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import User from "./models/user_model.js";
 import postRoutes from "./routes/post_route.js";
 import userRoutes from "./routes/user_route.js";
-
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-
+import bodyParser from "body-parser";
 dotenv.config();
 
 const app = express();
 const port = 5001;
 
+// set this above
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 app.use(express.json());
-app.use(
-  mongoSanitize({
-    onSanitize: ({ req, key }) => {
-      console.warn(`This request[${key}] is sanitized`, req);
-    },
-  }),
-);
 
 app.use("/api/upload", postRoutes);
 app.use("/api/user", userRoutes);
