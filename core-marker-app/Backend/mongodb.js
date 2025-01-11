@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import User from "./models/user_model.js";
 import postRoutes from "./routes/post_route.js";
 import userRoutes from "./routes/user_route.js";
-import bcrypt from "bcryptjs";
+import bcrypt, { hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
@@ -50,11 +50,11 @@ app.post("/api/register", async (req, res) => {
 
     await user.save();
 
-    res.json({ status: "ok" });
+    res.json({ status: "okay!" });
     console.log("user saved to database");
   } catch (err) {
     console.error(err);
-    res.json({ status: "error", error: "Could not save user" });
+    res.json({ status: "error!!!", error: "Could not save user" });
   }
 });
 
@@ -93,3 +93,8 @@ app.post("/api/login", async (req, res) => {
     return res.json({ status: "error", user: false });
   }
 });
+
+
+
+
+
